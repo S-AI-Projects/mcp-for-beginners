@@ -1578,3 +1578,20 @@ Continue with **[Lab 12: Best Practices and Optimization](../12-Best-Practices/R
 
 **Previous**: [Lab 10: Deployment Strategies](../10-Deployment/README.md)  
 **Next**: [Lab 12: Best Practices and Optimization](../12-Best-Practices/README.md)
+## Applied Lab: Local Trace Aggregation Experiment (R49-T048)
+
+This offline Python fixture demonstrates trace correlation by request ID, request duration, tool-call counts, and success/failure status. It marks missing end events as incomplete and excludes prompt contents from summaries.
+
+Run from the repository root:
+
+    python3 11-MCPServerHandsOnLabs/11-Monitoring/applied-labs/r49-t048/example.py
+
+Run tests:
+
+    python3 -m unittest discover -s 11-MCPServerHandsOnLabs/11-Monitoring/applied-labs/r49-t048 -p "test_*.py" -v
+
+The example compares 0, 100, and 1,000 additional synthetic requests. It reports correctness and observed local aggregation time.
+
+[Open the R49-T048 applied lab](applied-labs/r49-t048/README.md)
+
+This is a local simulation, not live telemetry or a production monitoring integration.
