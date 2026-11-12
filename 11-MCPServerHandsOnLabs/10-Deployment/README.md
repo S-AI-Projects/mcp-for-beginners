@@ -1375,3 +1375,20 @@ Continue with **[Lab 11: Monitoring and Observability](../11-Monitoring/README.m
 
 **Previous**: [Lab 09: VS Code Integration](../09-VS-Code/README.md)  
 **Next**: [Lab 11: Monitoring and Observability](../11-Monitoring/README.md)
+## Applied Lab: Tool Dispatch Failure and Recovery (R49-T047)
+
+This local Python fixture dispatches JSON-style calls through an explicit allowlist. It validates numeric arguments and returns structured errors for unknown tools and invalid input.
+
+Run from the repository root:
+
+    python3 11-MCPServerHandsOnLabs/10-Deployment/applied-labs/r49-t047/example.py
+
+Run tests:
+
+    python3 -m unittest discover -s 11-MCPServerHandsOnLabs/10-Deployment/applied-labs/r49-t047 -p "test_*.py" -v
+
+The example demonstrates a failed call followed by a successful valid call. Failed calls do not execute another tool.
+
+[Open the R49-T047 applied lab](applied-labs/r49-t047/README.md)
+
+This is a local contract simulation, not a full MCP transport or production deployment.
