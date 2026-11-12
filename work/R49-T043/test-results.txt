@@ -1,0 +1,11 @@
+test_empty_token (test_example.AuthenticationTests.test_empty_token) ... ok
+test_known_token (test_example.AuthenticationTests.test_known_token) ... ok
+test_missing_token (test_example.AuthenticationTests.test_missing_token) ... ok
+test_token_is_not_logged (test_example.AuthenticationTests.test_token_is_not_logged) ... ok
+test_unknown_token (test_example.AuthenticationTests.test_unknown_token) ... ok
+test_verifier_failure (test_example.AuthenticationTests.test_verifier_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK

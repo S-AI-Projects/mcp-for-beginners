@@ -1,0 +1,83 @@
+[
+  {
+    "case": "missing",
+    "expected": "unauthenticated",
+    "actual": "unauthenticated",
+    "passed": true,
+    "trace": [
+      {
+        "step": "token_received",
+        "token_present": false
+      },
+      {
+        "step": "verification",
+        "result": "missing"
+      },
+      {
+        "step": "identity",
+        "subject": null
+      },
+      {
+        "step": "final",
+        "output": "unauthenticated"
+      }
+    ],
+    "logs": [
+      "Authentication processed; token value redacted."
+    ]
+  },
+  {
+    "case": "unknown",
+    "expected": "invalid",
+    "actual": "invalid",
+    "passed": true,
+    "trace": [
+      {
+        "step": "token_received",
+        "token_present": true
+      },
+      {
+        "step": "verification",
+        "result": "rejected"
+      },
+      {
+        "step": "identity",
+        "subject": null
+      },
+      {
+        "step": "final",
+        "output": "invalid"
+      }
+    ],
+    "logs": [
+      "Authentication processed; token value redacted."
+    ]
+  },
+  {
+    "case": "known",
+    "expected": "student-01",
+    "actual": "student-01",
+    "passed": true,
+    "trace": [
+      {
+        "step": "token_received",
+        "token_present": true
+      },
+      {
+        "step": "verification",
+        "result": "valid"
+      },
+      {
+        "step": "identity",
+        "subject": "student-01"
+      },
+      {
+        "step": "final",
+        "output": "student-01"
+      }
+    ],
+    "logs": [
+      "Authentication processed; token value redacted."
+    ]
+  }
+]
