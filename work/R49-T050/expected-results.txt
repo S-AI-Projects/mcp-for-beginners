@@ -1,0 +1,2 @@
+{"ok":true,"message":{"jsonrpc":"2.0","id":1,"method":"ping"}}
+{"ok":true,"message":{"jsonrpc":"2.0","id":2,"method":"ping"}}
