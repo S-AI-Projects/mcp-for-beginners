@@ -28,3 +28,20 @@ Begin your journey with **[GitHub Copilot app](./01-copilot-app/README.md)**
 ---
 
 *Master these using MCP with these tools for enhanced productivity and seamless integration.*
+## Applied Lab: Client Configuration Validation (R49-T046)
+
+This local Python lab validates a server-launch configuration containing a command, an argument array and explicitly named environment keys. Environment values are redacted in the returned summary.
+
+Run from the repository root:
+
+    python3 12-tooling/applied-labs/r49-t046/example.py
+
+Run the tests:
+
+    python3 -m unittest discover -s 12-tooling/applied-labs/r49-t046 -p "test_*.py" -v
+
+The lab compares a baseline implementation with a refactored implementation that extracts environment redaction into a named function.
+
+[Open the R49-T046 applied lab](applied-labs/r49-t046/README.md)
+
+This is a local simulation. It validates configuration only and does not launch a process or establish a real MCP connection.

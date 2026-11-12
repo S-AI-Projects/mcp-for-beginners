@@ -1,0 +1,12 @@
+test_empty_command_fails (test_example.ConfigurationTests.test_empty_command_fails) ... ok
+test_missing_command_fails (test_example.ConfigurationTests.test_missing_command_fails) ... ok
+test_non_string_argument_fails (test_example.ConfigurationTests.test_non_string_argument_fails) ... ok
+test_refactor_matches_baseline (test_example.ConfigurationTests.test_refactor_matches_baseline) ... ok
+test_secret_value_is_not_returned (test_example.ConfigurationTests.test_secret_value_is_not_returned) ... ok
+test_string_args_fail (test_example.ConfigurationTests.test_string_args_fail) ... ok
+test_valid_configuration (test_example.ConfigurationTests.test_valid_configuration) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK

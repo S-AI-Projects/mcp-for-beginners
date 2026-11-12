@@ -1,0 +1,71 @@
+[
+  {
+    "case": "baseline and refactored equivalence",
+    "expected": {
+      "command": "python",
+      "args": [
+        "server.py",
+        "--port",
+        "8080"
+      ],
+      "env": {
+        "API_KEY": "[REDACTED]",
+        "PORT": "[REDACTED]"
+      }
+    },
+    "baseline": {
+      "command": "python",
+      "args": [
+        "server.py",
+        "--port",
+        "8080"
+      ],
+      "env": {
+        "API_KEY": "[REDACTED]",
+        "PORT": "[REDACTED]"
+      }
+    },
+    "actual": {
+      "command": "python",
+      "args": [
+        "server.py",
+        "--port",
+        "8080"
+      ],
+      "env": {
+        "API_KEY": "[REDACTED]",
+        "PORT": "[REDACTED]"
+      }
+    },
+    "passed": true
+  },
+  {
+    "case": "deliberately wrong expected result",
+    "expected": {
+      "command": "wrong-command",
+      "args": [
+        "server.py",
+        "--port",
+        "8080"
+      ],
+      "env": {
+        "API_KEY": "[REDACTED]",
+        "PORT": "[REDACTED]"
+      }
+    },
+    "actual": {
+      "command": "python",
+      "args": [
+        "server.py",
+        "--port",
+        "8080"
+      ],
+      "env": {
+        "API_KEY": "[REDACTED]",
+        "PORT": "[REDACTED]"
+      }
+    },
+    "passed": true,
+    "rejected": true
+  }
+]
