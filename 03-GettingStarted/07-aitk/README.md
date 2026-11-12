@@ -189,3 +189,41 @@ The takeaways from this chapter is the following:
 
 ## What's Next
 - Next: [Testing & Debugging](../08-testing/README.md)
+
+## Applied Lab: Validate a Server Launch Configuration (R49-T041)
+
+Before launching an MCP server, a client needs a valid launch configuration containing a command, separate arguments, and environment variables.
+
+This local mock example demonstrates how to validate these inputs and produce a summary that reveals environment variable names without exposing their values.
+
+### Run the example
+
+Prerequisite: Python 3. No additional packages, credentials, or external services are required.
+
+From the repository root, run:
+
+```bash
+python3 03-GettingStarted/07-aitk/applied-labs/r49-t041/example.py
+```
+
+The example uses a local fixture with command `python`, arguments `["server.py", "--port", "8080"]`, and environment keys `API_KEY` and `PORT`.
+
+Expected output:
+
+```text
+Mock configuration validation successful
+Command: python
+Arguments: ['server.py', '--port', '8080']
+Environment keys: ['API_KEY', 'PORT']
+No server process was started.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/07-aitk/applied-labs/r49-t041 -p "test_*.py"
+```
+
+For the complete example, validation rules, and limitations, see the [R49-T041 applied lab](./applied-labs/r49-t041/README.md).
+
+**Scope:** This is a local simulation, not a real MCP client or server launcher. It does not verify executable availability, start a process, establish an MCP connection, or contact Microsoft Foundry. It demonstrates configuration validation and secret redaction only.

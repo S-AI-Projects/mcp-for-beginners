@@ -1,0 +1,48 @@
+[
+  {
+    "case": "normal",
+    "expected": "exit code 0",
+    "actual_exit_code": 0,
+    "actual_stdout": "{'command': 'python', 'args': ['server.py'], 'environment_keys': ['API_KEY']}",
+    "actual_stderr": "",
+    "passed": true
+  },
+  {
+    "case": "boundary_empty_arguments",
+    "expected": "exit code 0",
+    "actual_exit_code": 0,
+    "actual_stdout": "{'command': 'python', 'args': [], 'environment_keys': []}",
+    "actual_stderr": "",
+    "passed": true
+  },
+  {
+    "case": "failure_missing_command",
+    "expected": "nonzero exit code",
+    "actual_exit_code": 1,
+    "actual_stdout": "",
+    "actual_stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n    import sys; sys.path.insert(0, '/Users/ananyasingh/mcp-for-beginners/mcp-for-beginners/03-GettingStarted/07-aitk/applied-labs/r49-t041'); from example import validate_config; validate_config({'args':['server.py'],'env':{}})\n                                                                                                                                                                                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ananyasingh/mcp-for-beginners/mcp-for-beginners/03-GettingStarted/07-aitk/applied-labs/r49-t041/example.py\", line 12, in validate_config\n    raise ValueError(\"A non-empty command is required\")\nValueError: A non-empty command is required",
+    "passed": true
+  },
+  {
+    "case": "failure_string_arguments",
+    "expected": "nonzero exit code",
+    "actual_exit_code": 1,
+    "actual_stdout": "",
+    "actual_stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n    import sys; sys.path.insert(0, '/Users/ananyasingh/mcp-for-beginners/mcp-for-beginners/03-GettingStarted/07-aitk/applied-labs/r49-t041'); from example import validate_config; validate_config({'command':'python','args':'server.py','env':{}})\n                                                                                                                                                                                   ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/ananyasingh/mcp-for-beginners/mcp-for-beginners/03-GettingStarted/07-aitk/applied-labs/r49-t041/example.py\", line 16, in validate_config\n    raise ValueError(\"Arguments must be a list\")\nValueError: Arguments must be a list",
+    "passed": true
+  },
+  {
+    "case": "unit_test_suite",
+    "expected": "exit code 0",
+    "actual_exit_code": 0,
+    "actual_stdout": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.000s\n\nOK",
+    "actual_stderr": "",
+    "passed": true
+  },
+  {
+    "case": "deliberate_failure_probe",
+    "expected": "nonzero exit code",
+    "actual_exit_code": 1,
+    "passed": true
+  }
+]
