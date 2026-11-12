@@ -325,3 +325,11 @@ Here's what you learned:
 ## What's Next
 
 - [Chapter 4](../../04-PracticalImplementation/README.md)
+
+## Applied Lab: R49-T042 — Typed Tool Dispatch
+
+[Open the R49-T042 applied lab](applied-labs/r49-t042/README.md)
+
+This lab demonstrates local typed tool dispatch using an explicit allowlist, numeric argument validation, structured errors, and comparison against independent expected results.
+
+**Scope:** This is a local Python mock, not a complete MCP server or transport implementation.
