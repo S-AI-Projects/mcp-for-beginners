@@ -845,3 +845,20 @@ async def delete_tool(tool_name: str):
 ## What's Next
 
 Next: [Lessons from Early Adoption](../07-LessonsfromEarlyAdoption/README.md)
+
+
+## Applied Lab: Typed Tool Dispatch — Offline Service Adapter (R49-T044)
+
+This local Python example demonstrates typed tool dispatch through an explicit allowlist and a callable adapter. It supports `add(a, b)` and `multiply(a, b)`, validates numeric arguments, and returns structured errors for unknown tools or invalid arguments.
+
+Run from the repository root:
+
+    python3 06-CommunityContributions/applied-labs/r49-t044/example.py
+
+Run the tests:
+
+    python3 -m unittest discover -s 06-CommunityContributions/applied-labs/r49-t044 -p "test_*.py" -v
+
+[Open the R49-T044 applied lab](applied-labs/r49-t044/README.md)
+
+This is a deterministic local mock, not a full MCP transport or real remote-service integration.

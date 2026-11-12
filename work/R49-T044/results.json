@@ -1,0 +1,62 @@
+[
+  {
+    "tool": "add",
+    "expected": {
+      "ok": true,
+      "result": 5
+    },
+    "actual": {
+      "ok": true,
+      "result": 5
+    },
+    "passed": true
+  },
+  {
+    "tool": "multiply",
+    "expected": {
+      "ok": true,
+      "result": 6
+    },
+    "actual": {
+      "ok": true,
+      "result": 6
+    },
+    "passed": true
+  },
+  {
+    "tool": "divide",
+    "expected": {
+      "ok": false,
+      "error": {
+        "type": "invalid_tool_call",
+        "message": "Unknown tool"
+      }
+    },
+    "actual": {
+      "ok": false,
+      "error": {
+        "type": "invalid_tool_call",
+        "message": "Unknown tool"
+      }
+    },
+    "passed": true
+  },
+  {
+    "tool": "add",
+    "expected": {
+      "ok": false,
+      "error": {
+        "type": "invalid_tool_call",
+        "message": "Arguments a and b must be numbers"
+      }
+    },
+    "actual": {
+      "ok": false,
+      "error": {
+        "type": "invalid_tool_call",
+        "message": "Arguments a and b must be numbers"
+      }
+    },
+    "passed": true
+  }
+]
