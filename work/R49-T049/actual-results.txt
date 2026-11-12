@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "ok": true,
+      "result": 5
+    },
+    {
+      "ok": true,
+      "result": 6
+    },
+    {
+      "ok": true,
+      "result": 0
+    },
+    {
+      "ok": true,
+      "result": -6
+    },
+    {
+      "ok": false,
+      "error": {
+        "code": "UNKNOWN_TOOL"
+      }
+    },
+    {
+      "ok": false,
+      "error": {
+        "code": "INVALID_ARGUMENTS"
+      }
+    }
+  ],
+  "executed_tools": [
+    "add",
+    "multiply",
+    "add",
+    "multiply"
+  ]
+}

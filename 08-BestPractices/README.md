@@ -2408,3 +2408,19 @@ Implement the tool schemas, error handling, and a workflow pattern that best sui
 Next: [Case Studies](../09-CaseStudy/README.md)
 
 
+
+
+### Applied Lab: Typed Tool Dispatch Boundary Cases (R49-T049)
+
+This local lab demonstrates explicit tool allowlisting and numeric argument validation before dispatch. It covers valid calls, zero and negative numeric boundaries, unknown tools, invalid argument types, and rejected-call safety.
+
+See [R49-T049: Typed Tool Dispatch — Boundary Cases](./applied-labs/r49-t049/README.md) for the runnable example, tests, expected results, and limitations.
+
+Run from the repository root:
+
+```bash
+python3 08-BestPractices/applied-labs/r49-t049/example.py
+python3 -m unittest discover -s 08-BestPractices/applied-labs/r49-t049 -p "test_*.py" -v
+```
+
+The example is a local contract fixture, not a full MCP transport implementation.

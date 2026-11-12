@@ -1,0 +1,15 @@
+test_add (test_example.DispatchTests.test_add) ... ok
+test_boolean_is_not_accepted_as_a_number (test_example.DispatchTests.test_boolean_is_not_accepted_as_a_number) ... ok
+test_float_arguments_are_valid (test_example.DispatchTests.test_float_arguments_are_valid) ... ok
+test_missing_argument_is_rejected (test_example.DispatchTests.test_missing_argument_is_rejected) ... ok
+test_multiply (test_example.DispatchTests.test_multiply) ... ok
+test_negative_boundary_is_valid (test_example.DispatchTests.test_negative_boundary_is_valid) ... ok
+test_string_argument_is_rejected_without_execution (test_example.DispatchTests.test_string_argument_is_rejected_without_execution) ... ok
+test_unknown_tool_is_rejected_without_execution (test_example.DispatchTests.test_unknown_tool_is_rejected_without_execution) ... ok
+test_valid_call_works_after_failed_call (test_example.DispatchTests.test_valid_call_works_after_failed_call) ... ok
+test_zero_boundary_is_valid (test_example.DispatchTests.test_zero_boundary_is_valid) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.000s
+
+OK
