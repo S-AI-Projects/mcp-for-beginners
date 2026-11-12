@@ -1,0 +1,14 @@
+[
+  {
+    "tool": "add",
+    "expected": 5,
+    "actual": 5,
+    "passed": true
+  },
+  {
+    "tool": "multiply",
+    "expected": 6,
+    "actual": 6,
+    "passed": true
+  }
+]
