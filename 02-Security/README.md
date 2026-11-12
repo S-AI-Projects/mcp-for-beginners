@@ -516,3 +516,22 @@ For comprehensive security guidance, refer to these specialized documents in thi
 ## What's Next
 
 Next: [Chapter 3: Getting Started](../03-GettingStarted/README.md)
+
+
+## Applied Lab: Request Authentication Boundary (R49-T045)
+
+This local Python example demonstrates bearer-token authentication through an injected verifier.
+
+It distinguishes missing, invalid and valid identities without exposing token values in logs.
+
+Run from the repository root:
+
+    python3 02-Security/applied-labs/r49-t045/example.py
+
+Run tests:
+
+    python3 -m unittest discover -s 02-Security/applied-labs/r49-t045 -p "test_*.py" -v
+
+[Open the R49-T045 applied lab](applied-labs/r49-t045/README.md)
+
+This is a local mock, not a production OAuth or MCP authentication implementation.
