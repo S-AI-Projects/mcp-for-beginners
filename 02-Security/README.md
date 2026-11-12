@@ -516,3 +516,20 @@ For comprehensive security guidance, refer to these specialized documents in thi
 ## What's Next
 
 Next: [Chapter 3: Getting Started](../03-GettingStarted/README.md)
+
+
+## Applied Lab: Request Authentication Boundary (R49-T043)
+
+Practice validating bearer tokens through an injected verifier. This hands-on lab demonstrates how to distinguish missing, invalid, and valid identities, trace intermediate authentication states, and ensure token values are not exposed in logs.
+
+**Lab files:** [R49-T043 — Request Authentication Boundary](applied-labs/r49-t043/README.md)
+
+**Run the example:**
+```bash
+python3 02-Security/applied-labs/r49-t043/example.py
+```
+
+**Run the tests:**
+```bash
+python3 -m unittest discover -s 02-Security/applied-labs/r49-t043 -p "test_*.py" -v
+```
