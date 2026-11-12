@@ -1,0 +1,12 @@
+test_add (test_example.ToolDispatchTests.test_add) ... ok
+test_boolean_argument (test_example.ToolDispatchTests.test_boolean_argument) ... ok
+test_failed_call_does_not_execute_another_tool (test_example.ToolDispatchTests.test_failed_call_does_not_execute_another_tool) ... ok
+test_missing_argument (test_example.ToolDispatchTests.test_missing_argument) ... ok
+test_multiply (test_example.ToolDispatchTests.test_multiply) ... ok
+test_string_argument (test_example.ToolDispatchTests.test_string_argument) ... ok
+test_unknown_tool (test_example.ToolDispatchTests.test_unknown_tool) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
