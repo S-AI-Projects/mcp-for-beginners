@@ -1,0 +1,11 @@
+test_blank_lines_are_ignored (test_example.TestMessageFraming.test_blank_lines_are_ignored) ... ok
+test_diagnostic_does_not_enter_protocol_output (test_example.TestMessageFraming.test_diagnostic_does_not_enter_protocol_output) ... ok
+test_empty_input_produces_no_messages (test_example.TestMessageFraming.test_empty_input_produces_no_messages) ... ok
+test_malformed_json_returns_structured_error (test_example.TestMessageFraming.test_malformed_json_returns_structured_error) ... ok
+test_non_object_json_is_rejected (test_example.TestMessageFraming.test_non_object_json_is_rejected) ... ok
+test_two_messages_preserve_request_ids (test_example.TestMessageFraming.test_two_messages_preserve_request_ids) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
