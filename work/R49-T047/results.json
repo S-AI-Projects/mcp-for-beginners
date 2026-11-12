@@ -1,0 +1,58 @@
+[
+  {
+    "expected": {
+      "ok": true,
+      "result": 5
+    },
+    "actual": {
+      "ok": true,
+      "result": 5
+    },
+    "passed": true
+  },
+  {
+    "expected": {
+      "ok": true,
+      "result": 6
+    },
+    "actual": {
+      "ok": true,
+      "result": 6
+    },
+    "passed": true
+  },
+  {
+    "expected": {
+      "ok": false,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool is not allowed"
+      }
+    },
+    "actual": {
+      "ok": false,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool is not allowed"
+      }
+    },
+    "passed": true
+  },
+  {
+    "expected": {
+      "ok": false,
+      "error": {
+        "code": "INVALID_ARGUMENTS",
+        "message": "Arguments a and b must be numbers"
+      }
+    },
+    "actual": {
+      "ok": false,
+      "error": {
+        "code": "INVALID_ARGUMENTS",
+        "message": "Arguments a and b must be numbers"
+      }
+    },
+    "passed": true
+  }
+]

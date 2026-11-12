@@ -1,0 +1,30 @@
+[
+  {
+    "tool": "add",
+    "arguments": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  {
+    "tool": "multiply",
+    "arguments": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  {
+    "tool": "unknown",
+    "arguments": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  {
+    "tool": "add",
+    "arguments": {
+      "a": "2",
+      "b": 3
+    }
+  }
+]

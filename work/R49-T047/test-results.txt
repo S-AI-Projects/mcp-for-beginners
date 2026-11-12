@@ -1,0 +1,12 @@
+test_add (test_example.DispatchTests.test_add) ... ok
+test_failed_call_does_not_execute_another_tool (test_example.DispatchTests.test_failed_call_does_not_execute_another_tool) ... ok
+test_missing_arguments_are_rejected (test_example.DispatchTests.test_missing_arguments_are_rejected) ... ok
+test_multiply (test_example.DispatchTests.test_multiply) ... ok
+test_string_argument_is_rejected (test_example.DispatchTests.test_string_argument_is_rejected) ... ok
+test_unknown_tool_is_structured_error (test_example.DispatchTests.test_unknown_tool_is_structured_error) ... ok
+test_valid_call_recovers_after_failure (test_example.DispatchTests.test_valid_call_recovers_after_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
