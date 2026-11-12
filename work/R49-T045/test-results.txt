@@ -1,0 +1,14 @@
+test_custom_verifier (test_example.AuthenticationTests.test_custom_verifier) ... Authentication result: authenticated
+ok
+test_missing_token (test_example.AuthenticationTests.test_missing_token) ... Authentication result: unauthenticated
+ok
+test_token_is_not_logged (test_example.AuthenticationTests.test_token_is_not_logged) ... ok
+test_unknown_token (test_example.AuthenticationTests.test_unknown_token) ... Authentication result: invalid
+ok
+test_valid_token (test_example.AuthenticationTests.test_valid_token) ... Authentication result: authenticated
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

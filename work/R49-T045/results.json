@@ -1,0 +1,38 @@
+[
+  {
+    "input": "missing",
+    "expected": {
+      "status": "unauthenticated",
+      "subject": null
+    },
+    "actual": {
+      "status": "unauthenticated",
+      "subject": null
+    },
+    "passed": true
+  },
+  {
+    "input": "provided",
+    "expected": {
+      "status": "invalid",
+      "subject": null
+    },
+    "actual": {
+      "status": "invalid",
+      "subject": null
+    },
+    "passed": true
+  },
+  {
+    "input": "provided",
+    "expected": {
+      "status": "authenticated",
+      "subject": "student-001"
+    },
+    "actual": {
+      "status": "authenticated",
+      "subject": "student-001"
+    },
+    "passed": true
+  }
+]
