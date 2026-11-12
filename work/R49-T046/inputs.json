@@ -1,0 +1,15 @@
+[
+  {
+    "case": "valid configuration",
+    "command": "python",
+    "args": [
+      "server.py",
+      "--port",
+      "8080"
+    ],
+    "environment_keys": [
+      "API_KEY",
+      "PORT"
+    ]
+  }
+]
