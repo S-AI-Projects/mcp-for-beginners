@@ -1,0 +1,11 @@
+R49-T041 Tool Versions
+Date: Thu Nov 12 17:35:44 IST 2026
+
+Python:
+Python 3.15.2
+
+Git:
+git version 2.55.0
+
+Platform:
+Darwin Ananyas-MacBook-Pro.local 25.6.0 Darwin Kernel Version 25.6.0: Fri Jul 31 19:16:20 PDT 2026; root:xnu-12377.161.14~5/RELEASE_ARM64_T8142 arm64

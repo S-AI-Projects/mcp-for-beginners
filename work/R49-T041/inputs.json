@@ -1,0 +1,28 @@
+{
+  "normal": {
+    "command": "python",
+    "args": ["server.py", "--port", "8080"],
+    "env": {
+      "API_KEY": "sample-secret",
+      "PORT": "8080"
+    },
+    "expected": "valid configuration; environment values are not exposed"
+  },
+  "boundary": {
+    "command": "python",
+    "args": [],
+    "env": {},
+    "expected": "valid configuration with an empty argument list"
+  },
+  "failure_missing_command": {
+    "args": ["server.py"],
+    "env": {},
+    "expected": "ValueError"
+  },
+  "failure_string_arguments": {
+    "command": "python",
+    "args": "server.py",
+    "env": {},
+    "expected": "ValueError"
+  }
+}
