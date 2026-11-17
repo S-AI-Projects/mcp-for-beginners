@@ -367,3 +367,13 @@ Sampling is a powerful feature that allows the server to delegate tasks to the c
 
 
 
+
+## Applied Example: Client-Consent Gate
+
+Explore the [R49-T001 Client-Consent Gate](./applied-labs/r49-t001/README.md).
+
+This local Python example demonstrates pending, approved, and denied consent states. It uses a mock model function to verify that denied requests never call the model, approved requests call it exactly once, and completed requests cannot be approved again.
+
+**Requirements:** Python 3 standard library. No external packages, model downloads, GPU, or physical devices are required.
+
+**Note:** This is a local simulation, not a real MCP sampling integration.
