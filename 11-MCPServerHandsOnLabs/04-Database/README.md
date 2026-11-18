@@ -1113,6 +1113,50 @@ Continue with **[Lab 05: MCP Server Implementation](../05-MCP-Server/README.md)*
 - [Embedding Models](https://platform.openai.com/docs/guides/embeddings) - OpenAI embeddings documentation
 - [HNSW Algorithm](https://arxiv.org/abs/1603.09320) - Hierarchical Navigable Small World graphs
 
+## Applied Lab: Capability Negotiation — Failure and Recovery Example (R49-T018)
+
+Multi-tenant MCP database servers must enforce strict capability boundaries and handle query errors gracefully. This applied lab intersects client and server capabilities (`{tools, resources}` & `{tools, prompts}` $\rightarrow$ `{tools}`), rejects unnegotiated `resources` calls before dispatch, exercises a documented missing-parameter failure (missing `store_id`), and demonstrates clean session recovery on the next valid input.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 11-MCPServerHandsOnLabs/04-Database/applied-labs/r49-t018/example.py
+```
+
+Expected output:
+
+```text
+=== Database Capability Negotiation & Recovery Demo (R49-T018) ===
+Client capabilities: ['resources', 'tools']
+Server capabilities: ['prompts', 'tools']
+Negotiated capabilities: ['tools']
+
+[Step 1] Attempting to invoke unnegotiated capability 'resources'...
+Successfully rejected before dispatch: Capability 'resources' was not negotiated. Negotiated capabilities: ['tools']
+
+[Step 2] Executing query with missing 'store_id'...
+Caught documented missing-data error: Missing required parameter: 'store_id' is mandatory for multi-tenant isolation
+
+[Step 3] Recovering on next valid input (supplying store_id)...
+Recovery successful! Retrieved 2 rows for store store-east-01.
+
+Demo completed successfully. No live PostgreSQL instance or network required.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/04-Database/applied-labs/r49-t018 -p "test_*.py"
+```
+
+For complete contract specifications and recovery details, see the [R49-T018 applied lab](./applied-labs/r49-t018/README.md).
+
+**Scope:** This is a local mock simulation. No live database engines or network connections are used.
+
 ---
 
 **Previous**: [Lab 03: Environment Setup](../03-Setup/README.md)  
