@@ -360,6 +360,42 @@ TIP: use what you learned earlier to construct this server and its tool using a 
 
 Sampling is a powerful feature that allows the server to delegate tasks to the client when it needs the help of an LLM.
 
+## Applied Lab: Client-Consent Gate — Refactor the Teaching Example (R49-T016)
+
+When an MCP server requests LLM sampling, client consent gating ensures users authorize model execution. This applied lab models sampling consent as a state machine (`pending`, `approved`, `denied`), validates that denied requests never invoke the model stub, prevents re-approval of resolved requests, and refactors state transitions into an extracted component while preserving before/after equivalence.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 03-GettingStarted/14-sampling/applied-labs/r49-t016/example.py
+```
+
+Expected output:
+
+```text
+=== Client-Consent Gate State Machine (R49-T016) ===
+Equivalence between Baseline and Refactored Gate: True
+Approved Execution Result: {'state': 'approved', 'response': 'Echo: Generate product description', 'model_calls': 1}
+Denied Execution Result: {'state': 'denied', 'response': None, 'model_calls': 0}
+Re-approval Blocked for Completed Request: True
+
+Demo completed. Denied consent made 0 model calls; approved consent made 1 call.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/14-sampling/applied-labs/r49-t016 -p "test_*.py"
+```
+
+For complete state rules and refactoring documentation, see the [R49-T016 applied lab](./applied-labs/r49-t016/README.md).
+
+**Scope:** This is a local mock simulation. No external AI models or host processes are invoked.
+
 ## What's Next
 
 - [Chapter 4 - Practical implementation](../../04-PracticalImplementation/README.md)
