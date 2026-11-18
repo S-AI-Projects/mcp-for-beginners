@@ -555,6 +555,53 @@ Extend the code you've been given with a number of tools, resources and prompt a
 
 In this chapter, we saw how low-level server approach worked and how that can help us create a nice architecture we can keep building on. We also discussed validation and you were shown how to work with validation libraries to create schemas for input validation.
 
+## Applied Lab: Typed Tool Dispatch — Scenario Assessment (R49-T020)
+
+Low-level servers require deterministic request routing and robust schema validation. This applied lab dispatches `add(a, b)` and `multiply(a, b)` through an explicit allowlist, validates numeric types, returns structured errors for unknown tools or string inputs without executing fallback tools, and provides three applied assessment questions with executable checks.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 03-GettingStarted/10-advanced/applied-labs/r49-t020/example.py
+```
+
+Expected output:
+
+```text
+=== Advanced Server Usage: Scenario Assessment (R49-T020) ===
+
+[Standard Dispatches]
+add(2, 3) -> {'success': True, 'tool': 'add', 'result': 5}
+multiply(2, 3) -> {'success': True, 'tool': 'multiply', 'result': 6}
+
+[Applied Questions & Executable Checks]
+Q1 (Q1_predict_output): PASSED
+   Question: What is the structured result when calling add(2, 3)?
+   Response: {'success': True, 'tool': 'add', 'result': 5}
+Q2 (Q2_diagnose_failure): PASSED
+   Question: Why does calling add with arguments {'a': '2', 'b': 3} fail?
+   Response: {'success': False, 'error': {'code': 'INVALID_ARGUMENT_TYPE', 'message': "Argument 'a' must be numeric, got str"}}
+Q3 (Q3_boundary_policy): PASSED
+   Question: What boundary policy governs unlisted tools like 'divide'?
+   Response: {'success': False, 'error': {'code': 'UNKNOWN_TOOL', 'message': "Tool 'divide' is not in allowlist: ['add', 'multiply']"}}
+
+All scenario checks passed. Failed calls returned structured errors without side effects.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/10-advanced/applied-labs/r49-t020 -p "test_*.py"
+```
+
+For full scenario rationales and checks, see the [R49-T020 applied lab](./applied-labs/r49-t020/README.md).
+
+**Scope:** This is a local contract fixture. It does not implement full wire-level MCP transport protocols.
+
 ## What's Next
 
 - Next: [Simple Authentication](../11-simple-auth/README.md)
