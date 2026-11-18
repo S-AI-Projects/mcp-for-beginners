@@ -1494,6 +1494,51 @@ Continue with **[Lab 08: Testing and Debugging](../08-Testing/README.md)** to:
 - [Vector Search Best Practices](https://weaviate.io/blog/vector-search-best-practices) - Implementation patterns
 - [Hybrid Search Strategies](https://blog.vespa.ai/hybrid-search/) - Combining different search approaches
 
+## Applied Lab: Capability Negotiation and Feature Gating (R49-T011)
+
+In MCP architecture, clients and servers negotiate capabilities during initialization to establish which primitives (tools, resources, prompts) can be utilized. For a semantic search server providing tool-based vector lookups, requests for unnegotiated capabilities (such as direct resource reads) must be rejected prior to dispatch.
+
+This runnable concept example demonstrates capability intersection and pre-dispatch feature gating using local fixtures without external dependencies.
+
+### Run the example
+
+Prerequisite: Python 3. No additional packages, credentials, GPU, or database instances are required.
+
+From the repository root, run:
+
+```bash
+python3 11-MCPServerHandsOnLabs/07-Semantic-Search/applied-labs/r49-t011/example.py
+```
+
+The example uses a local fixture where client capabilities are `{"tools", "resources"}` and server capabilities are `{"tools", "prompts"}`. The negotiated intersection is `{"tools"}`.
+
+Expected output:
+
+```text
+=== MCP Capability Negotiation Demo (R49-T011) ===
+Client capabilities: ['resources', 'tools']
+Server capabilities: ['prompts', 'tools']
+Negotiated capabilities: ['tools']
+
+[Action 1] Calling negotiated capability 'tools'...
+Dispatch successful! Result: {'tool': 'semantic_search_products', 'status': 'success', 'query': 'comfortable running shoes', 'matches': [{'product_id': 'prod-101', 'product_name': 'Trail Running Shoes', 'similarity_score': 0.89}, {'product_id': 'prod-204', 'product_name': 'Comfort Walkers', 'similarity_score': 0.82}]}
+
+[Action 2] Calling unnegotiated capability 'resources'...
+Successfully rejected before dispatch: Capability 'resources' was not negotiated. Negotiated capabilities: ['tools']
+
+Demo completed successfully. No server process or external services contacted.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/07-Semantic-Search/applied-labs/r49-t011 -p "test_*.py"
+```
+
+For the complete example, validation rules, and contract details, see the [R49-T011 applied lab](./applied-labs/r49-t011/README.md).
+
+**Scope:** This is a local mock simulation demonstrating protocol capability negotiation and dispatch gating. It does not spawn background processes, query pgvector, or connect to Azure OpenAI.
+
 ---
 
 **Previous**: [Lab 06: Tool Development](../06-Tools/README.md)  

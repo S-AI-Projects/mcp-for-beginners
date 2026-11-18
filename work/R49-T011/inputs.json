@@ -1,0 +1,41 @@
+{
+  "normal": {
+    "client_capabilities": ["tools", "resources"],
+    "server_capabilities": ["tools", "prompts"],
+    "expected_negotiated": ["tools"],
+    "action": {
+      "capability": "tools",
+      "method": "semantic_search_products",
+      "query": "comfortable running shoes"
+    },
+    "expected_result": "status: success, matches list returned"
+  },
+  "boundary_empty_client_capabilities": {
+    "client_capabilities": [],
+    "server_capabilities": ["tools", "prompts"],
+    "expected_negotiated": [],
+    "action": {
+      "capability": "tools",
+      "method": "semantic_search_products"
+    },
+    "expected_result": "CapabilityNotNegotiatedError"
+  },
+  "failure_unnegotiated_capability_resources": {
+    "client_capabilities": ["tools", "resources"],
+    "server_capabilities": ["tools", "prompts"],
+    "expected_negotiated": ["tools"],
+    "action": {
+      "capability": "resources",
+      "method": "read_resource",
+      "uri": "resource://products/catalog"
+    },
+    "expected_result": "CapabilityNotNegotiatedError: Capability 'resources' was not negotiated"
+  },
+  "failure_dispatch_before_negotiation": {
+    "action": {
+      "capability": "tools",
+      "method": "semantic_search_products"
+    },
+    "expected_result": "RuntimeError: Capabilities have not been negotiated yet"
+  }
+}
