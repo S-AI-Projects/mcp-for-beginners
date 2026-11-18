@@ -377,6 +377,54 @@ Different hosts support different transport mechanisms:
 
 ---
 
+## Applied Lab: Client Configuration Validation (R49-T012)
+
+Host clients must validate server launch configurations prior to spawning processes. This applied lab verifies required executable commands, mandates argument arrays, and redacts sensitive environment values in diagnostic reports.
+
+### Run the example
+
+Prerequisite: Python 3. No external packages or running processes required.
+
+From the repository root:
+
+```bash
+python3 03-GettingStarted/12-mcp-hosts/applied-labs/r49-t012/example.py
+```
+
+Expected output:
+
+```text
+=== MCP Host Configuration Validation (R49-T012) ===
+Normal config validated successfully:
+  Command: node
+  Args: ['build/index.js', '--port', '3000']
+  Environment Keys: ['API_KEY', 'PORT']
+  (Secret values were redacted)
+
+Boundary config (empty args & env) validated successfully:
+  Summary: {'command': 'python', 'args': [], 'environment_keys': []}
+
+Testing invalid args (single string):
+  Caught expected error: Arguments must be a list of strings, not a single string
+
+Testing missing command:
+  Caught expected error: A non-empty string 'command' is required
+
+Demo completed successfully. No server process was launched.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/12-mcp-hosts/applied-labs/r49-t012 -p "test_*.py"
+```
+
+For full boundary rules and documentation, see the [R49-T012 applied lab](./applied-labs/r49-t012/README.md).
+
+**Scope:** This is a local mock simulation demonstrating configuration boundary checks and secret redaction. It does not launch child processes or verify system paths.
+
+---
+
 ## What's Next
 
 - [3.13 - Debugging with MCP Inspector](../13-mcp-inspector/README.md)
