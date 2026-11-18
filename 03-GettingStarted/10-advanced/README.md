@@ -545,6 +545,50 @@ There, now we have a full understanding of listing and calling tools using a low
 
 See the [full example](./code/README.md) here
 
+## Applied Lab: Typed Tool Dispatch (R49-T002)
+This applied lab extends the Advanced Server Usage lesson with a local example of typed tool dispatch.
+
+### Objective
+
+Demonstrate local JSON tool dispatch using an explicit allowlist, numeric argument validation, and structured errors.
+
+### Prerequisites
+
+- Python 3 standard library
+- Local repository checkout
+
+### Available tools
+
+| Tool | Arguments | Expected result |
+|---|---|---|
+| add | a=2, b=3 | 5 |
+| multiply | a=2, b=3 | 6 |
+
+### Run the example
+
+From the repository root:
+
+    python3 03-GettingStarted/10-advanced/applied-labs/r49-t002/example.py
+
+### Run tests
+
+    python3 -m unittest discover -s 03-GettingStarted/10-advanced/applied-labs/r49-t002 -p "test_*.py" -v
+
+### Boundary and invalid cases
+
+- Zero and negative numbers are accepted.
+- Integer and floating-point values are accepted.
+- Boolean and string arguments are rejected.
+- Missing or additional arguments are rejected.
+- Unknown tool names return structured errors.
+- Failed tool lookups do not execute another registered tool.
+
+### Scope and limitations
+
+This is a local Python contract fixture, not a full MCP transport implementation. It does not demonstrate real cloud services, hardware, or trained-model performance.
+
+See the [R49-T002 applied lab](./applied-labs/r49-t002/README.md) for the implementation and test instructions.
+
 ## Assignment
 
 Extend the code you've been given with a number of tools, resources and prompt and reflect over how you notice that you only need to add files in tools directory and nowhere else. 
