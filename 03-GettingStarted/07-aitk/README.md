@@ -189,3 +189,45 @@ The takeaways from this chapter is the following:
 
 ## What's Next
 - Next: [Testing & Debugging](../08-testing/README.md)
+
+## Applied Lab: Client-Configuration Validation — Evaluation Experiment (R49-T019)
+
+Consuming servers locally with Microsoft Foundry Toolkit requires valid configurations without leaking secrets in diagnostics. This applied lab validates commands and argument arrays, redacts environment variables, and evaluates scaling performance across controlled configuration sizes (`small`, `medium`, `large`).
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 03-GettingStarted/07-aitk/applied-labs/r49-t019/example.py
+```
+
+Expected output:
+
+```text
+=== Configuration Validation Evaluation Experiment (R49-T019) ===
+
+| Size | Args | Env Keys | Correctness | Validation Time (μs) |
+| :--- | :--- | :--- | :--- | :--- |
+| small | 1 | 1 | True | ... μs |
+| medium | 5 | 5 | True | ... μs |
+| large | 20 | 20 | True | ... μs |
+
+Negative / Boundary Cases:
+1. Missing command rejected: A non-empty string command is required
+2. String args rejected: Arguments must be a list of strings, not a single string
+
+Evaluation complete. Observed predictable linear scaling without launching processes.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/07-aitk/applied-labs/r49-t019 -p "test_*.py"
+```
+
+For complete benchmarking data and specifications, see the [R49-T019 applied lab](./applied-labs/r49-t019/README.md).
+
+**Scope:** This is a local mock simulation. No server processes are spawned, and no Microsoft Foundry services are contacted.
