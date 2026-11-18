@@ -277,6 +277,52 @@ Design a practical MCP workflow that addresses a real-world problem in your doma
 
 ## Additional Resources
 
+## Applied Lab: Installation Preflight Report — Invariant and State Trace (R49-T014)
+
+Practical MCP solutions require dependable execution environments. This applied lab implements a read-only environment preflight checking required executables and configuration fields, redacts secrets, records step-by-step state traces, and verifies the invariant connecting traces to final verdicts.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 04-PracticalImplementation/applied-labs/r49-t014/example.py
+```
+
+Expected output:
+
+```text
+=== Environment Preflight Report & State Trace (R49-T014) ===
+
+--- 1. Complete Fixture (Passes) ---
+Preflight Passed: True
+Redacted Config: {'server_host': 'localhost', 'port': 8080, 'api_key': '[REDACTED]'}
+Invariant Verified: True
+Trace Steps: 4
+
+--- 2. Missing Executable Fixture ---
+Preflight Passed: False
+Actionable Failures: ["Missing required executable: 'node'"]
+
+--- 3. Missing Config Field Fixture ---
+Preflight Passed: False
+Actionable Failures: ["Missing required config field: 'port'", "Missing required config field: 'api_key'"]
+
+Preflight demonstration complete. No external services or package installations attempted.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 04-PracticalImplementation/applied-labs/r49-t014 -p "test_*.py"
+```
+
+For complete trace details and verification rules, see the [R49-T014 applied lab](./applied-labs/r49-t014/README.md).
+
+**Scope:** This is a local mock simulation. No package installations, child process executions, or external connections are performed.
+
 ---
 
 ## What's Next
