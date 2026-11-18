@@ -277,6 +277,50 @@ Design a practical MCP workflow that addresses a real-world problem in your doma
 
 ## Additional Resources
 
+## Applied Lab: Installation Preflight Report — Offline Service Adapter (R49-T015)
+
+Preflight verification protects MCP server operations from missing executables and configuration errors. This applied lab decouples environmental checks behind an abstract `EnvironmentAdapter` interface and tests a deterministic `LocalOfflineAdapter` without making system or network calls.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 04-PracticalImplementation/applied-labs/r49-t015/example.py
+```
+
+Expected output:
+
+```text
+=== Environment Preflight with Offline Adapter (R49-T015) ===
+
+--- Complete Fixture ---
+Preflight Passed: True
+Redacted Config: {'database_url': 'postgresql://localhost:5432/mcp', 'api_key': '[REDACTED]', 'port': '8080'}
+
+--- Missing Executable Fixture ---
+Preflight Passed: False
+Actionable Failures: ["Executable missing: 'node'"]
+
+--- Missing Config Fixture ---
+Preflight Passed: False
+Actionable Failures: ["Config field missing or empty: 'api_key'", "Config field missing or empty: 'port'"]
+
+Demo complete. Adapter operated completely offline without touching the OS.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 04-PracticalImplementation/applied-labs/r49-t015 -p "test_*.py"
+```
+
+For complete adapter specifications and real-service boundaries, see the [R49-T015 applied lab](./applied-labs/r49-t015/README.md).
+
+**Scope:** This is a local mock simulation. No package installations, child process executions, or external connections are performed.
+
 ---
 
 ## What's Next
