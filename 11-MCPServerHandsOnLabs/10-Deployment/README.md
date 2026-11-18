@@ -1371,6 +1371,42 @@ Continue with **[Lab 11: Monitoring and Observability](../11-Monitoring/README.m
 - [Container Security](https://kubernetes.io/docs/concepts/security/) - Kubernetes security concepts
 - [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) - Azure Application Insights
 
+## Applied Lab: Typed Tool Dispatch — Worked Example with Checks (R49-T017)
+
+Production MCP deployments require deterministic request dispatch and strict input validation. This applied lab dispatches `add(a, b)` and `multiply(a, b)` via an allowlist, performs numeric validation, returns structured error envelopes for unknown tools or invalid argument types, and prevents fallback execution on failures.
+
+### Run the example
+
+Prerequisite: Python 3 standard library.
+
+From the repository root:
+
+```bash
+python3 11-MCPServerHandsOnLabs/10-Deployment/applied-labs/r49-t017/example.py
+```
+
+Expected output:
+
+```text
+=== Typed Tool Dispatch (R49-T017) ===
+add(2, 3) -> {'success': True, 'tool': 'add', 'result': 5}
+multiply(2, 3) -> {'success': True, 'tool': 'multiply', 'result': 6}
+unknown tool 'subtract' -> {'success': False, 'error': {'code': 'UNKNOWN_TOOL', 'message': "Tool 'subtract' is not in allowlist: ['add', 'multiply']"}}
+string argument a -> {'success': False, 'error': {'code': 'INVALID_ARGUMENT_TYPE', 'message': "Argument 'a' must be numeric, got str"}}
+
+Demonstration complete. Failed calls return structured errors without executing other tools.
+```
+
+Run the tests with:
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/10-Deployment/applied-labs/r49-t017 -p "test_*.py"
+```
+
+For worked tables and error specifications, see the [R49-T017 applied lab](./applied-labs/r49-t017/README.md).
+
+**Scope:** This is a local contract fixture. It does not implement full JSON-RPC network transports or deploy cloud containers.
+
 ---
 
 **Previous**: [Lab 09: VS Code Integration](../09-VS-Code/README.md)  
