@@ -1379,3 +1379,70 @@ Create a simple MCP server with a tool of your choice:
 ## What's next
 
 Next: [Getting Started with MCP Clients](../02-client/README.md)
+
+
+
+## Applied Lab: Typed Tool Dispatch (R49-T003)
+
+This local Python fixture demonstrates how tool calls can be dispatched safely using an explicit allowlist and numeric argument validation.
+
+### Example
+
+Location: [R49-T003 Applied Lab](applied-labs/r49-t003/example.py)
+
+Test module: [test_example.py](applied-labs/r49-t003/test_example.py)
+
+The fixture supports two tools:
+
+- `add(a, b)` returns the sum.
+- `multiply(a, b)` returns the product.
+
+### Run the example
+
+Prerequisite: Python 3 standard library. No external packages are required.
+
+From the repository root, run:
+
+```bash
+python3 03-GettingStarted/01-first-server/applied-labs/r49-t003/example.py '{"tool":"add","arguments":{"a":2,"b":3}}'
+```
+
+Expected output:
+
+```json
+{"ok": true, "result": 5}
+```
+
+For multiplication:
+
+```bash
+python3 03-GettingStarted/01-first-server/applied-labs/r49-t003/example.py '{"tool":"multiply","arguments":{"a":2,"b":3}}'
+```
+
+Expected output:
+
+```json
+{"ok": true, "result": 6}
+```
+
+### Comparison
+
+The direct implementation dispatches the requested tool through an explicit allowlist.
+
+An independent expected-result table in the tests checks both operations using identical inputs, along with boundary cases.
+
+### Validation
+
+Unknown tools and invalid arguments return structured errors. Failed calls do not execute another registered tool.
+
+Run the tests:
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/01-first-server/applied-labs/r49-t003 -p "test_*.py"
+```
+
+### Scope and limitations
+
+This is a local simulation of tool dispatch using JSON requests. It demonstrates validation and controlled local function execution.
+
+It is not a complete MCP transport implementation and does not connect to an actual MCP client, server, model or external service.
