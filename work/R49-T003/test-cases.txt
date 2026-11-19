@@ -1,0 +1,25 @@
+R49-T003 - Test Inputs and Expected Results
+
+1. Addition
+Input: {"tool":"add","arguments":{"a":2,"b":3}}
+Expected: {"ok":true,"result":5}
+Actual: {"ok":true,"result":5}
+Status: PASS
+
+2. Multiplication
+Input: {"tool":"multiply","arguments":{"a":2,"b":3}}
+Expected: {"ok":true,"result":6}
+Actual: {"ok":true,"result":6}
+Status: PASS
+
+3. Unknown tool
+Input: {"tool":"divide","arguments":{"a":6,"b":2}}
+Expected: Structured error with code unknown_tool
+Status: PASS (verified by unit test)
+
+4. String argument
+Input: {"tool":"add","arguments":{"a":"2","b":3}}
+Expected: Structured error with code invalid_arguments
+Actual: Structured error with code invalid_arguments
+Exit code: 1
+Status: PASS

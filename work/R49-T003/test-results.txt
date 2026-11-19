@@ -1,0 +1,14 @@
+test_add (test_example.TestToolDispatch.test_add) ... ok
+test_boolean_argument_is_rejected (test_example.TestToolDispatch.test_boolean_argument_is_rejected) ... ok
+test_comparison_with_expected_results (test_example.TestToolDispatch.test_comparison_with_expected_results) ... ok
+test_failed_call_does_not_execute_another_tool (test_example.TestToolDispatch.test_failed_call_does_not_execute_another_tool) ... ok
+test_invalid_json_returns_error (test_example.TestToolDispatch.test_invalid_json_returns_error) ... ok
+test_missing_argument_returns_error (test_example.TestToolDispatch.test_missing_argument_returns_error) ... ok
+test_multiply (test_example.TestToolDispatch.test_multiply) ... ok
+test_string_argument_returns_structured_error (test_example.TestToolDispatch.test_string_argument_returns_structured_error) ... ok
+test_unknown_tool_returns_structured_error (test_example.TestToolDispatch.test_unknown_tool_returns_structured_error) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+OK
