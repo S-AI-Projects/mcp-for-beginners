@@ -1037,3 +1037,32 @@ Continue with **[Lab 06: Tool Development](../06-Tools/README.md)** to:
 ---
 
 **Next**: Ready to expand your tools? Continue with [Lab 06: Tool Development](../06-Tools/README.md)
+
+
+## Applied Example: R49-T005 — Typed Tool Dispatch
+
+This offline example demonstrates typed tool dispatch through an explicit allowlist and a deterministic local service adapter.
+
+**Example location:** [`applied-labs/r49-t005/`](applied-labs/r49-t005/)
+
+**Run the example** from the repository root:
+
+```bash
+python3 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t005/example.py
+```
+
+**Run the tests:**
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t005 -p "test_*.py" -v
+```
+
+The fixture demonstrates:
+
+- `add(2, 3)` returns `5`.
+- `multiply(2, 3)` returns `6`.
+- Unknown tools return structured errors.
+- Invalid argument types return structured errors.
+- Failed calls do not execute another tool.
+
+**Scope and limitations:** This is a local mock adapter, not a full MCP transport implementation. It does not establish real external-service, cloud, hardware, or trained-model behaviour. It requires only Python 3 standard library support.

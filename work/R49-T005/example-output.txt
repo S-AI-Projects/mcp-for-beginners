@@ -1,0 +1,4 @@
+{'success': True, 'result': 5}
+{'success': True, 'result': 6}
+{'success': False, 'error': {'code': 'UNKNOWN_TOOL', 'message': 'Tool is not allowed.'}}
+{'success': False, 'error': {'code': 'INVALID_ARGUMENT_TYPE', 'message': 'Arguments a and b must be numbers.'}}
