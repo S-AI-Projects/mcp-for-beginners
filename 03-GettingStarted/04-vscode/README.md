@@ -137,3 +137,53 @@ The takeaways from this chapter is the following:
 ## What's Next
 
 - Next: [Creating a stdio Server](../05-stdio-server/README.md)
+
+## Applied Example: [Client Configuration Validation (R49-T007)](./applied-labs/r49-t007/)
+
+This worked example demonstrates how to validate a local MCP server launch configuration before attempting to start a process.
+
+### Input Fixture
+
+```python
+{
+    "command": "python3",
+    "args": ["server.py", "--port", "8000"],
+    "env": {
+        "API_KEY": "example-secret",
+        "SERVER_MODE": "development"
+    }
+}
+```
+
+### Run the Example
+
+From the repository root, execute:
+
+```bash
+python3 03-GettingStarted/04-vscode/applied-labs/r49-t007/example.py
+```
+
+### Expected Output
+
+```text
+{'valid': True, 'command': 'python3', 'args': ['server.py', '--port', '8000'], 'env': {'API_KEY': '[REDACTED]', 'SERVER_MODE': '[REDACTED]'}, 'process_launched': False}
+```
+
+### Validation Checks
+
+- Missing or empty command: rejected.
+- Arguments supplied as a single string: rejected.
+- Non-string arguments: rejected.
+- Valid command and argument array: accepted.
+- Environment variable values: redacted.
+- Process execution: not performed.
+
+### Run Automated Tests
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/04-vscode/applied-labs/r49-t007 -p "test_*.py"
+```
+
+### Scope and Limitations
+
+This is a local Python simulation of configuration validation. It does not launch an MCP server, verify command availability, connect to a cloud service, or validate real hardware. Environment values are not exposed in the generated summary. Only the explicitly supplied local fixture is used. Python 3 standard library is sufficient; no external dependencies are required.
