@@ -1,0 +1,38 @@
+R49-T006 Fixture Evidence
+
+1. add(2, 3)
+Expected: 5
+Actual: 5
+Status: PASS
+
+2. multiply(2, 3)
+Expected: 6
+Actual: 6
+Status: PASS
+
+3. divide(2, 3)
+Expected: unknown_tool error
+Actual: unknown_tool error
+Status: PASS
+
+4. add("2", 3)
+Expected: invalid_arguments error
+Actual: invalid_arguments error
+Status: PASS
+
+5. add(True, 3)
+Expected: invalid_arguments error
+Actual: invalid_arguments error
+Status: PASS
+
+6. add(infinity, 3)
+Expected: invalid_arguments error
+Actual: invalid_arguments error
+Status: PASS
+
+7. add(2, 3, 4)
+Expected: invalid_arguments error
+Actual: invalid_arguments error
+Status: PASS
+
+Python version: See tool-versions.txt

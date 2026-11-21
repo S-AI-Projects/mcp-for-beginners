@@ -1,0 +1,15 @@
+test_add (test_example.TestTypedToolDispatch.test_add) ... ok
+test_before_after_equivalence (test_example.TestTypedToolDispatch.test_before_after_equivalence) ... ok
+test_boolean_argument (test_example.TestTypedToolDispatch.test_boolean_argument) ... ok
+test_extra_argument (test_example.TestTypedToolDispatch.test_extra_argument) ... ok
+test_failed_call_does_not_execute_another_tool (test_example.TestTypedToolDispatch.test_failed_call_does_not_execute_another_tool) ... ok
+test_infinite_argument (test_example.TestTypedToolDispatch.test_infinite_argument) ... ok
+test_missing_argument (test_example.TestTypedToolDispatch.test_missing_argument) ... ok
+test_multiply (test_example.TestTypedToolDispatch.test_multiply) ... ok
+test_string_argument (test_example.TestTypedToolDispatch.test_string_argument) ... ok
+test_unknown_tool (test_example.TestTypedToolDispatch.test_unknown_tool) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.000s
+
+OK

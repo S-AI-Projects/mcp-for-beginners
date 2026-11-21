@@ -1,0 +1,4 @@
+{'ok': True, 'result': 5}
+{'ok': True, 'result': 6}
+{'ok': False, 'error': {'code': 'unknown_tool', 'message': 'Tool is not in the allowlist.'}}
+{'ok': False, 'error': {'code': 'invalid_arguments', 'message': "Expected numeric arguments 'a' and 'b'."}}

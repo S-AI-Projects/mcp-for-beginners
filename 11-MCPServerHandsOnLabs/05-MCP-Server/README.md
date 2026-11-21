@@ -1037,3 +1037,39 @@ Continue with **[Lab 06: Tool Development](../06-Tools/README.md)** to:
 ---
 
 **Next**: Ready to expand your tools? Continue with [Lab 06: Tool Development](../06-Tools/README.md)
+
+
+## Applied Lab: R49-T006 — Typed Tool Dispatch
+
+This local Python example demonstrates typed tool dispatch using an explicit allowlist.
+
+### Features
+- Supports `add(a, b)` and `multiply(a, b)`.
+- Validates numeric arguments.
+- Rejects unknown tools and invalid arguments with structured errors.
+- Prevents failed calls from executing another tool.
+
+### Run the example
+
+```bash
+python3 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t006/example.py
+```
+
+### Run tests
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t006 -p "test_*.py" -v
+```
+
+### Expected output
+
+- `add(2, 3)` returns `5`.
+- `multiply(2, 3)` returns `6`.
+- Unknown tools return a structured error.
+- Invalid arguments return a structured error.
+
+### Scope and limitations
+
+This is a local simulation using Python fixtures. It demonstrates dispatch and validation logic only. It is not a full MCP transport implementation and does not connect to real hardware, external services, or trained models.
+
+See [R49-T006 Applied Lab](applied-labs/r49-t006/README.md).
