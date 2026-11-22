@@ -1,0 +1,96 @@
+{
+  "status": "PASSED",
+  "steps": [
+    {
+      "step_id": 1,
+      "step_name": "Baseline Valid Call",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "tool": "add",
+        "params": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "value": 5,
+          "tool": "add"
+        }
+      },
+      "is_success": true,
+      "explanation": "Valid numeric parameters a=2, b=3 dispatched to 'add'. Expected 5."
+    },
+    {
+      "step_id": 2,
+      "step_name": "Documented Missing-Data Case",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "tool": "add",
+        "params": {
+          "a": 42
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "error": {
+          "code": -32602,
+          "message": "Invalid params: Missing required parameter 'b'."
+        }
+      },
+      "is_success": false,
+      "explanation": "Parameter 'b' was omitted entirely. The schema validator intercepted the request, halted execution prior to handler invocation, and returned error code -32602 (INVALID_PARAMS)."
+    },
+    {
+      "step_id": 3,
+      "step_name": "Documented Invalid-Data Case",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "tool": "add",
+        "params": {
+          "a": "2",
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "error": {
+          "code": -32602,
+          "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."
+        }
+      },
+      "is_success": false,
+      "explanation": "Parameter 'a' was provided as string '2' instead of numeric. The validator rejected type non-conformance with error code -32602, preventing downstream TypeError exceptions."
+    },
+    {
+      "step_id": 4,
+      "step_name": "Recovery on Next Valid Input",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "tool": "multiply",
+        "params": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "result": {
+          "value": 6,
+          "tool": "multiply"
+        }
+      },
+      "is_success": true,
+      "explanation": "The dispatcher immediately accepted the subsequent valid call to 'multiply', computing 2 * 3 = 6. This confirms no latching failure, deadlock, or state corruption occurred."
+    }
+  ]
+}

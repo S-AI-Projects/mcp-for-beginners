@@ -1,0 +1,93 @@
+{
+  "status": "PASSED",
+  "contract_results": [
+    {
+      "id": 1,
+      "tool": "add",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "tool": "add",
+        "params": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "value": 5,
+          "tool": "add"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "tool": "multiply",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "tool": "multiply",
+        "params": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "value": 6,
+          "tool": "multiply"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "tool": "power",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "tool": "power",
+        "params": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "error": {
+          "code": -32601,
+          "message": "Method not found: Tool 'power' is not allowlisted."
+        }
+      }
+    },
+    {
+      "id": 4,
+      "tool": "add",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "tool": "add",
+        "params": {
+          "a": "2",
+          "b": 3
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "error": {
+          "code": -32602,
+          "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."
+        }
+      }
+    }
+  ],
+  "execution_counts": {
+    "add": 1,
+    "multiply": 1
+  }
+}
