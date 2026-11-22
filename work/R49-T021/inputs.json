@@ -1,0 +1,57 @@
+[
+  {
+    "id": "scenario_1_support",
+    "type": "normal",
+    "query": "Please help me understand how this tool works",
+    "expected": {
+      "handler": "support",
+      "selected_intent": "help",
+      "matched_intents": [
+        "help"
+      ],
+      "success": true
+    }
+  },
+  {
+    "id": "scenario_2_calculator",
+    "type": "normal",
+    "query": "Can you calculate 25 * 4 for the quarterly report?",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate"
+      ],
+      "result": 100.0,
+      "success": true
+    }
+  },
+  {
+    "id": "scenario_3_ambiguous",
+    "type": "boundary_ambiguity",
+    "query": "Please help me calculate total margin: 100 - 45",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate",
+        "help"
+      ],
+      "result": 55.0,
+      "success": true,
+      "resolution_rule_contains": "priority_resolution"
+    }
+  },
+  {
+    "id": "scenario_4_fallback",
+    "type": "failure_unknown",
+    "query": "Check the weather in Seattle tomorrow",
+    "expected": {
+      "handler": "fallback",
+      "selected_intent": "unknown",
+      "matched_intents": [],
+      "success": true,
+      "resolution_rule_contains": "default_fallback"
+    }
+  }
+]
