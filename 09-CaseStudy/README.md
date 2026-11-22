@@ -146,6 +146,100 @@ The interesting part is the design constraints that publishing imposes, which ap
 
 The chapter closes with a short checklist you can apply to a server you are building.
 
+## 🧪 Applied Lab: Tool Dispatch and State Invariant Verification (Task R49-T024)
+
+In enterprise MCP deployments, ensuring that dispatch pipelines produce auditable state traces and adhere to strict state-to-output invariants is vital for reliable agent execution and regulatory compliance.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t024/example.py](./applied-labs/r49-t024/example.py)**  
+👉 **[applied-labs/r49-t024/test_example.py](./applied-labs/r49-t024/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating intermediate state tracing and invariant assertions across tool dispatch steps. It does not implement full async networking or remote MCP transports. No external AI models, GPUs, or cloud APIs are required.
+
+### Exact Invocation
+
+Run the state trace demonstration:
+```bash
+python3 09-CaseStudy/applied-labs/r49-t024/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 09-CaseStudy/applied-labs/r49-t024 -p "test_*.py"
+```
+
+### State-to-Output Invariants
+
+1. **Success Invariant**: When `success == true`, `result` must be numeric, `error == null`, and the intermediate state sequence must strictly be `[INITIALIZED, PARSED, ALLOWLIST_CHECKED, SCHEMA_VALIDATED, DISPATCHING, EXECUTED]` with all steps marked `SUCCESS`.
+2. **Allowlist Failure Invariant**: When the tool is unlisted (e.g. `divide`), execution halts at `ALLOWLIST_CHECKED` with status `FAILURE`. No schema validation, dispatching, or execution occurs.
+3. **Argument Validation Invariant**: When argument `a` is not a number (e.g. `"2"` or boolean `True`), execution halts at `SCHEMA_VALIDATED` with status `FAILURE`. No handler execution occurs.
+4. **Execution Isolation**: A failed call halts immediately and executes zero tool handlers (`add_call_count == 0`, `multiply_call_count == 0`).
+
+### Fixtures & Expected Outputs
+
+#### Scenario 1: Normal Valid `add(2, 3)`
+* **Input**: `{"tool": "add", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "tool": "add",
+    "result": 5,
+    "error": null,
+    "state_trace": [
+      {"step": 1, "stage": "INITIALIZED", "status": "SUCCESS"},
+      {"step": 2, "stage": "PARSED", "status": "SUCCESS"},
+      {"step": 3, "stage": "ALLOWLIST_CHECKED", "status": "SUCCESS"},
+      {"step": 4, "stage": "SCHEMA_VALIDATED", "status": "SUCCESS"},
+      {"step": 5, "stage": "DISPATCHING", "status": "SUCCESS"},
+      {"step": 6, "stage": "EXECUTED", "status": "SUCCESS"}
+    ]
+  }
+  ```
+
+#### Scenario 2: Normal Valid `multiply(2, 3)`
+* **Input**: `{"tool": "multiply", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "tool": "multiply",
+    "result": 6,
+    "error": null
+  }
+  ```
+
+#### Scenario 3: Invalid — Unknown Tool
+* **Input**: `{"tool": "divide", "arguments": {"a": 10, "b": 2}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": false,
+    "tool": "divide",
+    "result": null,
+    "error": {
+      "code": "UNKNOWN_TOOL",
+      "message": "Tool 'divide' is not in the allowlist. Allowed: ['add', 'multiply']."
+    }
+  }
+  ```
+
+#### Scenario 4: Invalid — String Argument `a`
+* **Input**: `{"tool": "add", "arguments": {"a": "2", "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": false,
+    "tool": "add",
+    "result": null,
+    "error": {
+      "code": "INVALID_ARGUMENT",
+      "message": "Argument 'a' must be a numeric value (int or float), got str."
+    }
+  }
+  ```
+
 ## Conclusion
 
 These eight comprehensive case studies demonstrate the remarkable versatility and practical applications of the Model Context Protocol across diverse real-world scenarios. From complex multi-agent travel planning systems and enterprise API management to streamlined documentation workflows and the revolutionary GitHub MCP Registry, these examples showcase how MCP provides a standardized, scalable way to connect AI systems with the tools, data, and services they need to deliver exceptional value.
