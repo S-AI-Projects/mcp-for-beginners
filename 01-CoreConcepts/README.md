@@ -778,3 +778,28 @@ Next: [Chapter 2: Security](../02-Security/README.md)
 
 Read [What's Changed in MCP: The 2026-07-28 Specification](./mcp-2026-07-28.md)
 for migration guidance from `2025-11-25`.
+
+## Applied Lab: Capability Negotiation
+
+Try the [R49-T010: Capability Negotiation](applied-labs/r49-t010/README.md)
+local simulation to understand capability intersection and feature gating.
+
+The client advertises `tools` and `resources`. The server advertises
+`tools` and `prompts`. Their intersection is `tools`.
+Invoking `resources` is rejected before dispatch.
+
+Run the normal scenario:
+
+```bash
+python3 01-CoreConcepts/applied-labs/r49-t010/example.py tools
+```
+
+Run the boundary/failure scenario:
+
+```bash
+python3 01-CoreConcepts/applied-labs/r49-t010/example.py resources
+```
+
+This is a mock implementation, not a complete MCP protocol implementation.
+See the applied-lab README for expected outputs, applied questions, tests
+and limitations.
