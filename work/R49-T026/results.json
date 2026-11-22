@@ -1,0 +1,249 @@
+[
+  {
+    "fixture_id": "add_normal",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    },
+    "refactored_output": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "multiply_normal",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    },
+    "refactored_output": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "boundary_zero",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 0,
+        "b": 0
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": true,
+      "tool": "add",
+      "result": 0,
+      "error": null
+    },
+    "refactored_output": {
+      "success": true,
+      "tool": "add",
+      "result": 0,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "boundary_one",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 1,
+        "b": 1
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": true,
+      "tool": "multiply",
+      "result": 1,
+      "error": null
+    },
+    "refactored_output": {
+      "success": true,
+      "tool": "multiply",
+      "result": 1,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "invalid_unknown_tool",
+    "call": {
+      "tool": "power",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": false,
+      "tool": "power",
+      "result": null,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'power' is not in the allowlist. Allowed: ['add', 'multiply'].",
+        "details": {
+          "tool": "power"
+        }
+      }
+    },
+    "refactored_output": {
+      "success": false,
+      "tool": "power",
+      "result": null,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'power' is not in the allowlist. Allowed: ['add', 'multiply'].",
+        "details": {
+          "tool": "power"
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "invalid_string_a",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got str.",
+        "details": {
+          "param": "a",
+          "value": "2",
+          "type": "str"
+        }
+      }
+    },
+    "refactored_output": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got str.",
+        "details": {
+          "param": "a",
+          "value": "2",
+          "type": "str"
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "invalid_bool_a",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": true,
+        "b": 5
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": false,
+      "tool": "multiply",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got bool.",
+        "details": {
+          "param": "a",
+          "value": true,
+          "type": "bool"
+        }
+      }
+    },
+    "refactored_output": {
+      "success": false,
+      "tool": "multiply",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got bool.",
+        "details": {
+          "param": "a",
+          "value": true,
+          "type": "bool"
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "missing_b",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 10
+      }
+    },
+    "status": "PASSED",
+    "equivalent": true,
+    "baseline_output": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "MISSING_ARGUMENT",
+        "message": "Missing required parameter 'b'.",
+        "details": {
+          "param": "b"
+        }
+      }
+    },
+    "refactored_output": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "MISSING_ARGUMENT",
+        "message": "Missing required parameter 'b'.",
+        "details": {
+          "param": "b"
+        }
+      }
+    }
+  }
+]

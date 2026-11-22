@@ -148,6 +148,44 @@ Each lab includes:
 - **GitHub Repo and Implementation Sample**: [Deployment Sample and Resources](https://github.com/microsoft/MCP-Server-and-PostgreSQL-Sample-Retail/)
 - **MCP Community**: [Join broader MCP discussions](https://github.com/orgs/modelcontextprotocol/discussions)
 
+## 🧪 Applied Lab: Tool Dispatch Refactoring and Equivalence Proof (Task R49-T026)
+
+When developing scalable MCP servers, decomposing monolithic tool handlers into dedicated single-responsibility components (e.g. extracting `NumericArgumentValidator`) is essential for auditability and maintainability. This lab demonstrates extracting validation into a named responsibility while proving strict before/after contract equivalence.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t026/example.py](./applied-labs/r49-t026/example.py)**  
+👉 **[applied-labs/r49-t026/test_example.py](./applied-labs/r49-t026/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating architectural decomposition and equivalence proving. It does not implement full async networking or remote MCP transports. No external AI models, GPUs, or cloud APIs are required.
+
+### Exact Invocation
+
+Run the equivalence demonstration:
+```bash
+python3 11-MCPServerHandsOnLabs/applied-labs/r49-t026/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/applied-labs/r49-t026 -p "test_*.py"
+```
+
+### Before vs. After Equivalence on Fixtures
+
+| Scenario | Input Call | Baseline Output | Refactored Output | Equivalence Proved |
+|---|---|---|---|---|
+| Valid `add` | `{"tool": "add", "arguments": {"a": 2, "b": 3}}` | `result: 5` | `result: 5` | **100% Equivalent** |
+| Valid `multiply` | `{"tool": "multiply", "arguments": {"a": 2, "b": 3}}` | `result: 6` | `result: 6` | **100% Equivalent** |
+| Boundary Zero | `{"tool": "add", "arguments": {"a": 0, "b": 0}}` | `result: 0` | `result: 0` | **100% Equivalent** |
+| Boundary One | `{"tool": "multiply", "arguments": {"a": 1, "b": 1}}` | `result: 1` | `result: 1` | **100% Equivalent** |
+| Unknown Tool | `{"tool": "power", "arguments": {"a": 2, "b": 3}}` | `UNKNOWN_TOOL` | `UNKNOWN_TOOL` | **100% Equivalent** |
+| Invalid String `a` | `{"tool": "add", "arguments": {"a": "2", "b": 3}}` | `INVALID_ARGUMENT` | `INVALID_ARGUMENT` | **100% Equivalent** |
+| Invalid Boolean `a` | `{"tool": "multiply", "arguments": {"a": True, "b": 5}}` | `INVALID_ARGUMENT` | `INVALID_ARGUMENT` | **100% Equivalent** |
+
+### Execution Isolation
+A failed call halts immediately on both baseline and refactored dispatchers, ensuring that a failed call cannot execute another tool (`add_call_count == 0`, `multiply_call_count == 0`).
+
 ## 🚀 Ready to Start?
 
 Begin your journey with **[Lab 00: Introduction to MCP Database Integration](./00-Introduction/README.md)**
