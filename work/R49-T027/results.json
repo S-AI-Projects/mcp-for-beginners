@@ -1,0 +1,124 @@
+[
+  {
+    "fixture_id": "scenario_1_negotiated_add",
+    "request": {
+      "capability": "tools",
+      "target": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "result": 5,
+      "error": null
+    },
+    "actual": {
+      "success": true,
+      "capability": "tools",
+      "target": "add",
+      "result": 5,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "scenario_2_negotiated_multiply",
+    "request": {
+      "capability": "tools",
+      "target": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "result": 6,
+      "error": null
+    },
+    "actual": {
+      "success": true,
+      "capability": "tools",
+      "target": "multiply",
+      "result": 6,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "scenario_3_unnegotiated_resources_rejected",
+    "request": {
+      "capability": "resources",
+      "target": "schema://sales_data"
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "result": null,
+      "error_code": "UNNEGOTIATED_CAPABILITY"
+    },
+    "actual": {
+      "success": false,
+      "capability": "resources",
+      "target": "schema://sales_data",
+      "result": null,
+      "error": {
+        "code": "UNNEGOTIATED_CAPABILITY",
+        "message": "Capability 'resources' was not negotiated for this session. Negotiated capabilities: ['tools'].",
+        "details": {
+          "requested_capability": "resources",
+          "client_capabilities": [
+            "resources",
+            "tools"
+          ],
+          "server_capabilities": [
+            "prompts",
+            "tools"
+          ],
+          "negotiated_capabilities": [
+            "tools"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_4_unnegotiated_prompts_rejected",
+    "request": {
+      "capability": "prompts",
+      "target": "sales_prompt"
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "result": null,
+      "error_code": "UNNEGOTIATED_CAPABILITY"
+    },
+    "actual": {
+      "success": false,
+      "capability": "prompts",
+      "target": "sales_prompt",
+      "result": null,
+      "error": {
+        "code": "UNNEGOTIATED_CAPABILITY",
+        "message": "Capability 'prompts' was not negotiated for this session. Negotiated capabilities: ['tools'].",
+        "details": {
+          "requested_capability": "prompts",
+          "client_capabilities": [
+            "resources",
+            "tools"
+          ],
+          "server_capabilities": [
+            "prompts",
+            "tools"
+          ],
+          "negotiated_capabilities": [
+            "tools"
+          ]
+        }
+      }
+    }
+  }
+]
