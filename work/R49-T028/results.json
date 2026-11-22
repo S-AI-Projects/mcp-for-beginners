@@ -1,0 +1,100 @@
+[
+  {
+    "turn": 1,
+    "description": "Turn 1 (Fault): Missing required parameter 'b'",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2
+      }
+    },
+    "response": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "MISSING_ARGUMENT",
+        "message": "Missing required numeric parameter 'b'.",
+        "details": {
+          "missing_parameter": "b",
+          "required_parameters": [
+            "a",
+            "b"
+          ],
+          "provided_arguments": [
+            "a"
+          ],
+          "remediation": "Ensure 'b' is included in arguments, e.g., {'a': 2, 'b': 3}."
+        }
+      }
+    },
+    "status": "REJECTED_WITH_EXPLANATION"
+  },
+  {
+    "turn": 2,
+    "description": "Turn 2 (Recovery): Client supplies corrected valid payload",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "response": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    },
+    "status": "SUCCESS"
+  },
+  {
+    "turn": 3,
+    "description": "Turn 3 (Fault): String argument 'a'",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "response": {
+      "success": false,
+      "tool": "multiply",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got str.",
+        "details": {
+          "parameter": "a",
+          "received_value": "2",
+          "received_type": "str",
+          "expected_types": [
+            "int",
+            "float"
+          ],
+          "remediation": "Pass a valid number for 'a', e.g., 2 or 2.5."
+        }
+      }
+    },
+    "status": "REJECTED_WITH_EXPLANATION"
+  },
+  {
+    "turn": 4,
+    "description": "Turn 4 (Recovery): Client supplies corrected valid payload",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "response": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    },
+    "status": "SUCCESS"
+  }
+]
