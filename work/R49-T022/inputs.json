@@ -1,0 +1,121 @@
+[
+  {
+    "id": "scenario_1_add_valid",
+    "type": "normal_valid",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "expected": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    }
+  },
+  {
+    "id": "scenario_2_multiply_valid",
+    "type": "normal_valid",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "expected": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    }
+  },
+  {
+    "id": "scenario_3_boundary_smallest_add",
+    "type": "boundary_smallest_valid",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 0,
+        "b": 0
+      }
+    },
+    "expected": {
+      "success": true,
+      "tool": "add",
+      "result": 0,
+      "error": null
+    }
+  },
+  {
+    "id": "scenario_4_boundary_smallest_multiply",
+    "type": "boundary_smallest_valid",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 1,
+        "b": 1
+      }
+    },
+    "expected": {
+      "success": true,
+      "tool": "multiply",
+      "result": 1,
+      "error": null
+    }
+  },
+  {
+    "id": "scenario_5_invalid_unknown_tool",
+    "type": "invalid_allowlist",
+    "call": {
+      "tool": "divide",
+      "arguments": {
+        "a": 10,
+        "b": 2
+      }
+    },
+    "expected": {
+      "success": false,
+      "tool": "divide",
+      "result": null,
+      "error_code": "UNKNOWN_TOOL"
+    }
+  },
+  {
+    "id": "scenario_6_invalid_string_a",
+    "type": "invalid_argument_type",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "expected": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error_code": "INVALID_ARGUMENT"
+    }
+  },
+  {
+    "id": "scenario_7_invalid_bool_a",
+    "type": "boundary_type_rejection",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": true,
+        "b": 5
+      }
+    },
+    "expected": {
+      "success": false,
+      "tool": "multiply",
+      "result": null,
+      "error_code": "INVALID_ARGUMENT"
+    }
+  }
+]
