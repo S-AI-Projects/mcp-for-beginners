@@ -1284,6 +1284,116 @@ class UtilityTool(DatabaseTool):
         }
 ```
 
+## 🧪 Applied Lab: Intent Routing and Auditable Decision Records (Task R49-T021)
+
+This section demonstrates an auditable tool request router that maps incoming requests to explicit handlers (`support`, `calculator`, `fallback`), handles ambiguous multi-match intents using a deterministic priority hierarchy (`calculate` > `help`), and records a structured decision record in `ToolResult.metadata["audit"]`.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t021/example.py](./applied-labs/r49-t021/example.py)**  
+👉 **[applied-labs/r49-t021/test_example.py](./applied-labs/r49-t021/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: Intent matching uses local deterministic pattern rules rather than an external trained NLU/LLM classifier. In-memory audit logs simulate external distributed logging/telemetry sinks (e.g., Azure Application Insights). No external cloud endpoints, paid APIs, GPUs, or model weights are required.
+
+### Exact Invocation
+
+Run the example:
+```bash
+python3 11-MCPServerHandsOnLabs/06-Tools/applied-labs/r49-t021/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/06-Tools/applied-labs/r49-t021 -p "test_*.py"
+```
+
+### Fixtures & Expected Outputs
+
+#### Scenario 1: Normal — Support Request
+* **Input Query**: `"Please help me understand how this tool works"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "handler": "support",
+      "message": "Support guidance: available modules include documentation, FAQs, and system tutorials."
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["help"],
+        "selected_intent": "help",
+        "handler_name": "support",
+        "resolution_rule": "exact_rule_match: rule 'help' matched uniquely"
+      }
+    }
+  }
+  ```
+
+#### Scenario 2: Normal — Calculation Request
+* **Input Query**: `"Can you calculate 25 * 4 for the quarterly report?"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "handler": "calculator",
+      "result": 100.0
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["calculate"],
+        "selected_intent": "calculate",
+        "handler_name": "calculator",
+        "resolution_rule": "exact_rule_match: rule 'calculate' matched uniquely"
+      }
+    }
+  }
+  ```
+
+#### Scenario 3: Boundary & Ambiguity — Multiple Matching Intents
+* **Input Query**: `"Please help me calculate total margin: 100 - 45"`
+* **Documented Priority Rule**: `calculate` (Priority 1) > `help` (Priority 2)
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "handler": "calculator",
+      "result": 55.0
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["calculate", "help"],
+        "selected_intent": "calculate",
+        "handler_name": "calculator",
+        "resolution_rule": "priority_resolution: 'calculate' (priority 1) selected over ['help'] following documented precedence"
+      }
+    }
+  }
+  ```
+
+#### Scenario 4: Failure & Fallback — Unrecognized Request
+* **Input Query**: `"Check the weather in Seattle tomorrow"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "handler": "fallback",
+      "message": "Unrecognized intent. Available tools are 'support' and 'calculator'."
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": [],
+        "selected_intent": "unknown",
+        "handler_name": "fallback",
+        "resolution_rule": "default_fallback: no explicit rules matched query"
+      }
+    }
+  }
+  ```
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:

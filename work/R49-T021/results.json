@@ -1,0 +1,112 @@
+[
+  {
+    "fixture_id": "scenario_1_support",
+    "query": "Please help me understand how this tool works",
+    "status": "PASSED",
+    "expected": {
+      "handler": "support",
+      "selected_intent": "help",
+      "matched_intents": [
+        "help"
+      ],
+      "success": true
+    },
+    "actual": {
+      "handler": "support",
+      "selected_intent": "help",
+      "matched_intents": [
+        "help"
+      ],
+      "resolution_rule": "exact_rule_match: rule 'help' matched uniquely",
+      "success": true,
+      "data": {
+        "handler": "support",
+        "message": "Support guidance: available modules include documentation, FAQs, and system tutorials.",
+        "query": "Please help me understand how this tool works"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_2_calculator",
+    "query": "Can you calculate 25 * 4 for the quarterly report?",
+    "status": "PASSED",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate"
+      ],
+      "result": 100.0,
+      "success": true
+    },
+    "actual": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate"
+      ],
+      "resolution_rule": "exact_rule_match: rule 'calculate' matched uniquely",
+      "success": true,
+      "data": {
+        "handler": "calculator",
+        "result": 100.0,
+        "query": "Can you calculate 25 * 4 for the quarterly report?"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_3_ambiguous",
+    "query": "Please help me calculate total margin: 100 - 45",
+    "status": "PASSED",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate",
+        "help"
+      ],
+      "result": 55.0,
+      "success": true,
+      "resolution_rule_contains": "priority_resolution"
+    },
+    "actual": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate",
+        "help"
+      ],
+      "resolution_rule": "priority_resolution: 'calculate' (priority 1) selected over ['help'] following documented precedence",
+      "success": true,
+      "data": {
+        "handler": "calculator",
+        "result": 55.0,
+        "query": "Please help me calculate total margin: 100 - 45"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_4_fallback",
+    "query": "Check the weather in Seattle tomorrow",
+    "status": "PASSED",
+    "expected": {
+      "handler": "fallback",
+      "selected_intent": "unknown",
+      "matched_intents": [],
+      "success": true,
+      "resolution_rule_contains": "default_fallback"
+    },
+    "actual": {
+      "handler": "fallback",
+      "selected_intent": "unknown",
+      "matched_intents": [],
+      "resolution_rule": "default_fallback: no explicit rules matched query",
+      "success": true,
+      "data": {
+        "handler": "fallback",
+        "message": "Unrecognized intent. Available tools are 'support' and 'calculator'.",
+        "query": "Check the weather in Seattle tomorrow"
+      }
+    }
+  }
+]
