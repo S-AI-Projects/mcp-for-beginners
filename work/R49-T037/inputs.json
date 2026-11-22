@@ -1,0 +1,45 @@
+{
+  "test_cases": [
+    {
+      "id": 1,
+      "tool": "add",
+      "params": {"a": 2, "b": 3},
+      "expected_output": {"value": 5, "tool": "add"}
+    },
+    {
+      "id": 2,
+      "tool": "multiply",
+      "params": {"a": 2, "b": 3},
+      "expected_output": {"value": 6, "tool": "multiply"}
+    },
+    {
+      "id": 3,
+      "tool": "divide",
+      "params": {"a": 6, "b": 2},
+      "expected_error": {"code": -32601, "message_contains": "not allowlisted"}
+    },
+    {
+      "id": 4,
+      "tool": "add",
+      "params": {"a": "2", "b": 3},
+      "expected_error": {"code": -32602, "message_contains": "must be numeric"}
+    }
+  ],
+  "applied_questions": [
+    {
+      "category": "Predict an Output",
+      "question": "What is the exact JSON-RPC response when calling tool 'add' with float values a=2.5 and b=-0.5 under id=10?",
+      "expected_answer": {"jsonrpc": "2.0", "id": 10, "result": {"value": 2.0, "tool": "add"}}
+    },
+    {
+      "category": "Diagnose a Failure",
+      "question": "Given request {'id': 20, 'tool': 'multiply', 'params': {'a': '3', 'b': 4}}, why does it fail and which handler executed?",
+      "expected_answer": {"error_code": -32602, "handlers_executed": 0}
+    },
+    {
+      "category": "Choose a Boundary Policy",
+      "question": "When an unauthorized or unknown tool is requested, should the server fallback to a default tool or immediately reject?",
+      "expected_answer": "REJECT_IMMEDIATELY_NO_FALLBACK"
+    }
+  ]
+}

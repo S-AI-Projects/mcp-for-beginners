@@ -1,0 +1,39 @@
+{
+  "questions_verified": true,
+  "applied_questions": [
+    {
+      "question_number": 1,
+      "category": "Predict an Output",
+      "question": "What is the exact JSON-RPC response when calling tool 'add' with float values a=2.5 and b=-0.5 under id=10?",
+      "factual_answer": {
+        "jsonrpc": "2.0",
+        "id": 10,
+        "result": {
+          "value": 2.0,
+          "tool": "add"
+        }
+      },
+      "rationale": "Both 2.5 and -0.5 are valid floats adhering to numeric validation schema. The handler computes 2.5 + (-0.5) = 2.0. The dispatcher wraps the value in the standard JSON-RPC success envelope preserving id=10.",
+      "executable_check_passed": true
+    },
+    {
+      "question_number": 2,
+      "category": "Diagnose a Failure",
+      "question": "Given request {'id': 20, 'tool': 'multiply', 'params': {'a': '3', 'b': 4}}, why does it fail and which handler executed?",
+      "factual_answer": {
+        "error_code": -32602,
+        "handlers_executed": 0
+      },
+      "rationale": "Parameter 'a' was provided as a string ('3'). The schema validator detects type non-conformance and rejects the request with code -32602 (Invalid params). The execution halts before dispatch; exactly zero handlers are executed.",
+      "executable_check_passed": true
+    },
+    {
+      "question_number": 3,
+      "category": "Choose a Boundary Policy",
+      "question": "When an unauthorized or unknown tool is requested, should the server fallback to a default tool or immediately reject?",
+      "factual_answer": "REJECT_IMMEDIATELY_NO_FALLBACK",
+      "rationale": "Under the Principle of Least Privilege and safe MCP server design, requests for unallowlisted tools must fail fast with code -32601 (Method not found). Executing fallback tools risks unauthorized side-effects or semantic divergence.",
+      "executable_check_passed": true
+    }
+  ]
+}

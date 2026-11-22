@@ -1,0 +1,73 @@
+{
+  "contract": "PASSED",
+  "execution_counts": {
+    "add": 1,
+    "multiply": 1
+  },
+  "test_cases": [
+    {
+      "test_case_id": 1,
+      "tool": "add",
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "value": 5,
+          "tool": "add"
+        }
+      }
+    },
+    {
+      "test_case_id": 2,
+      "tool": "multiply",
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "value": 6,
+          "tool": "multiply"
+        }
+      }
+    },
+    {
+      "test_case_id": 3,
+      "tool": "divide",
+      "input": {
+        "a": 6,
+        "b": 2
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "error": {
+          "code": -32601,
+          "message": "Method not found: Tool 'divide' is not allowlisted."
+        }
+      }
+    },
+    {
+      "test_case_id": 4,
+      "tool": "add",
+      "input": {
+        "a": "2",
+        "b": 3
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "error": {
+          "code": -32602,
+          "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."
+        }
+      }
+    }
+  ]
+}
