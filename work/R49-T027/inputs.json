@@ -1,0 +1,68 @@
+{
+  "client_capabilities": [
+    "resources",
+    "tools"
+  ],
+  "server_capabilities": [
+    "prompts",
+    "tools"
+  ],
+  "fixtures": [
+    {
+      "id": "scenario_1_negotiated_add",
+      "request": {
+        "capability": "tools",
+        "target": "add",
+        "arguments": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "expected": {
+        "success": true,
+        "result": 5,
+        "error": null
+      }
+    },
+    {
+      "id": "scenario_2_negotiated_multiply",
+      "request": {
+        "capability": "tools",
+        "target": "multiply",
+        "arguments": {
+          "a": 2,
+          "b": 3
+        }
+      },
+      "expected": {
+        "success": true,
+        "result": 6,
+        "error": null
+      }
+    },
+    {
+      "id": "scenario_3_unnegotiated_resources_rejected",
+      "request": {
+        "capability": "resources",
+        "target": "schema://sales_data"
+      },
+      "expected": {
+        "success": false,
+        "result": null,
+        "error_code": "UNNEGOTIATED_CAPABILITY"
+      }
+    },
+    {
+      "id": "scenario_4_unnegotiated_prompts_rejected",
+      "request": {
+        "capability": "prompts",
+        "target": "sales_prompt"
+      },
+      "expected": {
+        "success": false,
+        "result": null,
+        "error_code": "UNNEGOTIATED_CAPABILITY"
+      }
+    }
+  ]
+}

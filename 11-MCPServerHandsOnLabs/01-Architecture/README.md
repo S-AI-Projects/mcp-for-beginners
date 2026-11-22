@@ -614,6 +614,66 @@ class QueryCache:
         return hashlib.sha256(key_data.encode()).hexdigest()
 ```
 
+## 🧪 Applied Lab: Capability Negotiation and Pre-Dispatch Feature Gating (Task R49-T027)
+
+In MCP architecture (Layer 1: Protocol Layer), during session initialization, the client and server negotiate supported capabilities via set intersection:
+$$\text{Negotiated Capabilities} = \text{Client Capabilities} \cap \text{Server Capabilities}$$
+
+If a client requests a capability outside the negotiated set (such as calling `resources` when only `tools` was negotiated), the protocol layer must intercept and reject the request **before** dispatching to any handler.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t027/example.py](./applied-labs/r49-t027/example.py)**  
+👉 **[applied-labs/r49-t027/test_example.py](./applied-labs/r49-t027/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating capability set negotiation and pre-dispatch feature gating. It does not implement full async JSON-RPC networking or remote socket transports. No external AI models, GPUs, or cloud APIs are required.
+
+### Exact Invocation
+
+Run the worked explanation demonstration:
+```bash
+python3 11-MCPServerHandsOnLabs/01-Architecture/applied-labs/r49-t027/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/01-Architecture/applied-labs/r49-t027 -p "test_*.py"
+```
+
+### Worked Input-to-Output Explanation (Regression Fixture)
+
+1. **Session Capability Handshake**:
+   - **Client Advertises**: `{"tools", "resources"}`
+   - **Server Advertises**: `{"tools", "prompts"}`
+   - **Negotiated Set**: `{"tools", "resources"} ∩ {"tools", "prompts"} = {"tools"}`
+
+2. **Invocation 1 (Negotiated Tool `add`)**:
+   - **Input**: `{"capability": "tools", "target": "add", "arguments": {"a": 2, "b": 3}}`
+   - **Output**: `{"success": true, "result": 5, "error": null}`
+   - **Action**: Dispatched to `MockToolExecutor.add`.
+
+3. **Invocation 2 (Negotiated Tool `multiply`)**:
+   - **Input**: `{"capability": "tools", "target": "multiply", "arguments": {"a": 2, "b": 3}}`
+   - **Output**: `{"success": true, "result": 6, "error": null}`
+   - **Action**: Dispatched to `MockToolExecutor.multiply`.
+
+4. **Invocation 3 (Unnegotiated Capability `resources`)**:
+   - **Input**: `{"capability": "resources", "target": "schema://retail"}`
+   - **Output**:
+     ```json
+     {
+       "success": false,
+       "capability": "resources",
+       "target": "schema://retail",
+       "result": null,
+       "error": {
+         "code": "UNNEGOTIATED_CAPABILITY",
+         "message": "Capability 'resources' was not negotiated for this session. Negotiated capabilities: ['tools']."
+       }
+     }
+     ```
+   - **Action**: **REJECTED_BEFORE_DISPATCH**. `MockResourceProvider.call_count == 0` (backend provider is never touched).
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should understand:
