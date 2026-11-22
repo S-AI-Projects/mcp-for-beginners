@@ -1,0 +1,38 @@
+{
+  "add_call": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "tool": "add",
+    "params": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  "multiply_call": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "tool": "multiply",
+    "params": {
+      "a": 2,
+      "b": 3
+    }
+  },
+  "unknown_tool_call": {
+    "jsonrpc": "2.0",
+    "id": 3,
+    "tool": "divide",
+    "params": {
+      "a": 6,
+      "b": 2
+    }
+  },
+  "string_param_call": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "tool": "add",
+    "params": {
+      "a": "2",
+      "b": 3
+    }
+  }
+}
