@@ -1,0 +1,46 @@
+[
+  {
+    "id": "valid_add",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "expected_result": 5
+  },
+  {
+    "id": "valid_multiply",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "expected_result": 6
+  },
+  {
+    "id": "invalid_unknown",
+    "call": {
+      "tool": "divide",
+      "arguments": {
+        "a": 10,
+        "b": 2
+      }
+    },
+    "expected_error": "UNKNOWN_TOOL"
+  },
+  {
+    "id": "invalid_string_a",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "expected_error": "INVALID_ARGUMENT"
+  }
+]

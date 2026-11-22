@@ -98,6 +98,48 @@ Here's how you can go about it:
 
 There you have it, deploy it locally, deploy it to Azure through these steps.
 
+## 🧪 Applied Lab: Tool Dispatch Benchmarking Across Deployment Profiles (Task R49-T029)
+
+When deploying MCP servers across various infrastructure targets (minimal CLI sidecars, containerized microservices, or enterprise audit platforms), deployment profiles must balance memory retention and diagnostic overhead while strictly guaranteeing contract correctness.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t029/example.py](./applied-labs/r49-t029/example.py)**  
+👉 **[applied-labs/r49-t029/test_example.py](./applied-labs/r49-t029/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture evaluating controlled telemetry profiles and batch sizes in-process. It does not measure real-world network transmission, remote cloud hosting latency, or trained-model inference accuracy.
+
+### Exact Invocation
+
+Run the configuration benchmarking demonstration:
+```bash
+python3 03-GettingStarted/09-deployment/applied-labs/r49-t029/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 03-GettingStarted/09-deployment/applied-labs/r49-t029 -p "test_*.py"
+```
+
+### Controlled Configuration Comparison
+
+| Profile Name | Target Environment | Telemetry Buffer | Correctness | Observed Trade-off |
+|---|---|---|---|---|
+| `minimal_embedded` | CLI / Sidecar | 0 records | **100.0%** | Zero memory overhead; no diagnostic history retained. |
+| `standard_container` | Azure Container Apps | 50 records | **100.0%** | Bounded memory buffer; captures operational success/failure status. |
+| `enterprise_diagnostic` | Audited Enterprise Platform | 500 records | **100.0%** | Maximum diagnostic fidelity; full request/response payload cloning. |
+
+### Contract Verification & Expected Output
+
+#### Scenario 1: Valid Normal Dispatch
+* `add(2, 3)` → `{"success": true, "result": 5, "error": null}`
+* `multiply(2, 3)` → `{"success": true, "result": 6, "error": null}`
+
+#### Scenario 2: Structured Error & Isolation
+* Unknown tool (`"divide"`): returns `UNKNOWN_TOOL` structured error.
+* Invalid argument (`a: "2"`): returns `INVALID_ARGUMENT` structured error.
+* Failure isolation: A failed call halts processing immediately, executing zero tool handlers (`add_call_count == 0`, `multiply_call_count == 0`).
+
 ## Additional Resources
 
 - [Azure Functions + MCP](https://learn.microsoft.com/en-us/samples/azure-samples/remote-mcp-functions-dotnet/remote-mcp-functions-dotnet/)

@@ -1,0 +1,35 @@
+[
+  {
+    "profile_key": "minimal",
+    "profile_name": "minimal_embedded",
+    "total_calls": 30,
+    "correct_calls": 30,
+    "correctness_percentage": 100.0,
+    "retained_memory_records": 0,
+    "total_time_us": 46.29,
+    "avg_time_per_call_us": 1.54,
+    "trade_off_analysis": "minimal_embedded: 0 telemetry records retained. Trade-off: Zero memory overhead with no audit trail."
+  },
+  {
+    "profile_key": "standard",
+    "profile_name": "standard_container",
+    "total_calls": 30,
+    "correct_calls": 30,
+    "correctness_percentage": 100.0,
+    "retained_memory_records": 30,
+    "total_time_us": 23.38,
+    "avg_time_per_call_us": 0.78,
+    "trade_off_analysis": "standard_container: 30 telemetry records retained. Trade-off: Bounded buffer with operational metrics."
+  },
+  {
+    "profile_key": "diagnostic",
+    "profile_name": "enterprise_diagnostic",
+    "total_calls": 30,
+    "correct_calls": 30,
+    "correctness_percentage": 100.0,
+    "retained_memory_records": 30,
+    "total_time_us": 274.71,
+    "avg_time_per_call_us": 9.16,
+    "trade_off_analysis": "enterprise_diagnostic: 30 telemetry records retained. Trade-off: Maximum diagnostic fidelity with full payload memory cost."
+  }
+]
