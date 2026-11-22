@@ -1,0 +1,67 @@
+[
+  {
+    "client_capabilities": [
+      "resources",
+      "tools"
+    ],
+    "server_capabilities": [
+      "prompts",
+      "tools"
+    ],
+    "approach_1_direct": [
+      "tools"
+    ],
+    "approach_2_calc": [
+      "tools"
+    ],
+    "approach_2_table": [
+      "tools"
+    ],
+    "equivalent": true,
+    "pre_dispatch_rejection_verified": true
+  },
+  {
+    "client_capabilities": [
+      "tools"
+    ],
+    "server_capabilities": [
+      "tools"
+    ],
+    "approach_1_direct": [
+      "tools"
+    ],
+    "approach_2_calc": [
+      "tools"
+    ],
+    "approach_2_table": [
+      "tools"
+    ],
+    "equivalent": true,
+    "pre_dispatch_rejection_verified": true
+  },
+  {
+    "client_capabilities": [
+      "resources"
+    ],
+    "server_capabilities": [
+      "tools"
+    ],
+    "approach_1_direct": [],
+    "approach_2_calc": [],
+    "approach_2_table": [],
+    "equivalent": true,
+    "pre_dispatch_rejection_verified": true
+  },
+  {
+    "client_capabilities": [],
+    "server_capabilities": [
+      "prompts",
+      "tools"
+    ],
+    "approach_1_direct": [],
+    "approach_2_calc": [],
+    "approach_2_table": [],
+    "equivalent": true,
+    "pre_dispatch_rejection_verified": true
+  }
+]

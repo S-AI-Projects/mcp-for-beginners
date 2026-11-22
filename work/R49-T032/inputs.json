@@ -1,0 +1,21 @@
+{
+  "primary_scenario": {
+    "client_capabilities": [
+      "tools",
+      "resources"
+    ],
+    "server_capabilities": [
+      "tools",
+      "prompts"
+    ],
+    "valid_invocation": {
+      "capability": "tools",
+      "method": "get_store_metrics",
+      "store_id": "store-101"
+    },
+    "rejected_invocation": {
+      "capability": "resources",
+      "method": "read_store_schema"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "primary_scenario": {
+    "negotiated": {
+      "direct": [
+        "tools"
+      ],
+      "independent_calc": [
+        "tools"
+      ],
+      "expected_table": [
+        "tools"
+      ],
+      "all_match": true
+    },
+    "valid_call_result": {
+      "store_id": "store-101",
+      "city": "Seattle",
+      "daily_sales": 14250.0
+    },
+    "rejected_call_result": {
+      "rejected_before_dispatch": true,
+      "handler_call_count": 0,
+      "rejection_message": "Capability 'resources' is not negotiated for this session. Negotiated set: ['tools']. Client offered: ['resources', 'tools'], Server offered: ['prompts', 'tools']. Invocation rejected before dispatch."
+    }
+  }
+}
