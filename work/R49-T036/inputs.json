@@ -1,0 +1,58 @@
+{
+  "raw_trace_events": [
+    {
+      "request_id": "req-A",
+      "event": "start",
+      "timestamp_ms": 100,
+      "prompt": "SELECT sales FROM store_101"
+    },
+    {
+      "request_id": "req-A",
+      "event": "tool_call",
+      "timestamp_ms": 104,
+      "tool": "query_db"
+    },
+    {
+      "request_id": "req-A",
+      "event": "tool_call",
+      "timestamp_ms": 108,
+      "tool": "format_currency"
+    },
+    {
+      "request_id": "req-A",
+      "event": "end",
+      "timestamp_ms": 112,
+      "status": "ok"
+    },
+    {
+      "request_id": "req-B",
+      "event": "start",
+      "timestamp_ms": 200,
+      "prompt": "UPDATE store_catalog SET price=10"
+    },
+    {
+      "request_id": "req-B",
+      "event": "error",
+      "timestamp_ms": 205,
+      "error": "Database connection timeout"
+    },
+    {
+      "request_id": "req-B",
+      "event": "end",
+      "timestamp_ms": 205,
+      "status": "error"
+    },
+    {
+      "request_id": "req-C",
+      "event": "start",
+      "timestamp_ms": 300,
+      "prompt": "ANALYZE sales_forecast"
+    },
+    {
+      "request_id": "req-C",
+      "event": "tool_call",
+      "timestamp_ms": 305,
+      "tool": "compute_trends"
+    }
+  ]
+}

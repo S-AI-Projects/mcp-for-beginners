@@ -1537,6 +1537,55 @@ runbooks:
           - "top -p $(pgrep postgres)"
 ```
 
+## 🧪 Applied Labs
+
+### [Applied Lab: Trace Aggregation & Refactored Observability Architecture (R49-T036)](applied-labs/r49-t036/README.md)
+
+This applied extension demonstrates correlation-based trace aggregation, prompt omission privacy, incomplete trace handling, and before/after refactoring equivalence:
+- **Trace Summary Contract**:
+  - Request A: 2 tool calls, duration 12ms, status `SUCCESS`.
+  - Request B: Status `FAILURE` with error details.
+  - Request C: Missing end event classified as `INCOMPLETE` with duration `None` (not 0).
+- **Strict Privacy**: Prompts and input queries are omitted from telemetry summaries.
+- **Refactoring & Equivalence**: Compares a monolithic baseline (`BaselineTraceAggregator`) against a modular design (`RefactoredTraceAggregator`) with an extracted `TraceLifecycleClassifier`, proving 100% before/after equivalence.
+- **Scope & Limitations (Simulation)**: Uses a local event fixture without cloud OpenTelemetry collectors or Azure Monitor dependencies.
+
+#### Exact Invocation:
+```bash
+python3 11-MCPServerHandsOnLabs/11-Monitoring/applied-labs/r49-t036/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/11-Monitoring/applied-labs/r49-t036 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[Aggregated Trace Summary]
+  Request ID       : req-A
+    Status         : SUCCESS
+    Duration       : 12 ms
+    Tool Calls     : 2
+    Error          : None
+
+  Request ID       : req-B
+    Status         : FAILURE
+    Duration       : 5 ms
+    Tool Calls     : 0
+    Error          : Database connection timeout
+
+  Request ID       : req-C
+    Status         : INCOMPLETE
+    Duration       : None (Incomplete)
+    Tool Calls     : 1
+    Error          : None
+
+Before/After Equivalence Proof : PASSED (Identical)
+```
+
+For complete trace data and equivalence documentation, see the [Applied Lab README](applied-labs/r49-t036/README.md).
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:

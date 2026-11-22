@@ -1,0 +1,26 @@
+{
+  "req_A": {
+    "request_id": "req-A",
+    "status": "SUCCESS",
+    "duration_ms": 12,
+    "tool_call_count": 2,
+    "error": null
+  },
+  "req_B": {
+    "request_id": "req-B",
+    "status": "FAILURE",
+    "duration_ms": 5,
+    "tool_call_count": 0,
+    "error": "Database connection timeout"
+  },
+  "req_C": {
+    "request_id": "req-C",
+    "status": "INCOMPLETE",
+    "duration_ms": null,
+    "tool_call_count": 1,
+    "error": null
+  },
+  "prompts_omitted": true,
+  "missing_end_marked_incomplete": true,
+  "before_after_equivalent": true
+}
