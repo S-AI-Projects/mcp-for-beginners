@@ -391,3 +391,93 @@ Different hosts support different transport mechanisms:
 - [VS Code MCP Extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-mcp)
 - [MCP Specification - Transports](https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/)
 - [Official MCP Servers Registry](https://github.com/modelcontextprotocol/servers)
+
+
+
+---
+
+## Applied Lab: Client Configuration Validation (R49-T009)
+
+This local experiment demonstrates how an MCP host's stdio launch configuration can be validated before a process is started.
+
+### Objective
+
+Validate three configuration fields:
+
+- `command`: A required, non-empty executable name.
+- `args`: A required array of strings representing separate command-line arguments.
+- `env`: A required dictionary containing explicitly named environment variables.
+
+Environment variable values are never included in the validation summary.
+
+### Prerequisites
+
+- Python 3
+- A local repository checkout
+- No external packages, model downloads, API credentials, GPU or physical device required.
+
+### Run the example
+
+From the repository root:
+
+```bash
+python3 03-GettingStarted/12-mcp-hosts/applied-labs/r49-t009/example.py
+```
+
+### Local fixture
+
+The experiment compares three mock configurations:
+
+| Configuration | Arguments | Environment keys | Expected result |
+|---|---:|---:|---|
+| Small | 1 | 1 | PASS |
+| Medium | 3 | 2 | PASS |
+| Large | 5 | 4 | PASS |
+
+Example input:
+
+```python
+{
+    "command": "python3",
+    "args": ["server.py", "--port", "8000"],
+    "env": {
+        "API_KEY": "mock-secret",
+        "LOG_LEVEL": "INFO"
+    }
+}
+```
+
+Expected validation summary:
+
+```json
+{
+    "valid": true,
+    "command": "python3",
+    "args": ["server.py", "--port", "8000"],
+    "environment_keys": ["API_KEY", "LOG_LEVEL"],
+    "environment_values_redacted": true,
+    "process_launched": false
+}
+```
+
+### Run tests
+
+```bash
+python3 -m unittest discover -s 03-GettingStarted/12-mcp-hosts/applied-labs/r49-t009 -p "test_*.py"
+```
+
+### Evaluation and observations
+
+All three controlled configurations passed validation.
+
+As the number of arguments and environment keys increases, the validator processes more configuration fields. The experiment evaluates contract correctness and output redaction, not real-world execution speed or MCP host performance.
+
+### Scope and limitations
+
+- This is a local simulation using mock configuration data.
+- No configured executable or MCP server is launched.
+- No connection to Claude Desktop, VS Code, Cursor or another MCP host is attempted.
+- Secret values are not returned in the validation summary.
+- Results do not establish real hardware behavior, cloud-service behavior or trained-model accuracy.
+
+**Related implementation:** [R49-T009 applied lab](./applied-labs/r49-t009/)
