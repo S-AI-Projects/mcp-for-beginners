@@ -1,0 +1,126 @@
+[
+  {
+    "scenario": "missing_token",
+    "trace": {
+      "step_1_extraction": {
+        "has_auth_header": false,
+        "is_bearer_format": false,
+        "token_extracted": false,
+        "token_fingerprint": null
+      },
+      "step_2_verification": {
+        "verifier_invoked": false,
+        "token_recognized": false,
+        "claims_present": false,
+        "claims_subject": null,
+        "error_code": "TOKEN_MISSING"
+      },
+      "step_3_resolution": {
+        "final_status": "unauthenticated",
+        "resolved_subject": null,
+        "error_message": "Missing bearer token in Authorization header."
+      },
+      "log_records_count": 1
+    },
+    "invariants": {
+      "invariant_missing_token": true,
+      "invariant_invalid_token": true,
+      "invariant_valid_token": true,
+      "invariant_logs_redacted": true,
+      "all_invariants_hold": true
+    }
+  },
+  {
+    "scenario": "unknown_token",
+    "trace": {
+      "step_1_extraction": {
+        "has_auth_header": true,
+        "is_bearer_format": true,
+        "token_extracted": true,
+        "token_fingerprint": "8026cc42"
+      },
+      "step_2_verification": {
+        "verifier_invoked": true,
+        "token_recognized": false,
+        "claims_present": false,
+        "claims_subject": null,
+        "error_code": "TOKEN_UNRECOGNIZED"
+      },
+      "step_3_resolution": {
+        "final_status": "invalid",
+        "resolved_subject": null,
+        "error_message": "Invalid or unrecognized bearer token."
+      },
+      "log_records_count": 3
+    },
+    "invariants": {
+      "invariant_missing_token": true,
+      "invariant_invalid_token": true,
+      "invariant_valid_token": true,
+      "invariant_logs_redacted": true,
+      "all_invariants_hold": true
+    }
+  },
+  {
+    "scenario": "known_token_alice",
+    "trace": {
+      "step_1_extraction": {
+        "has_auth_header": true,
+        "is_bearer_format": true,
+        "token_extracted": true,
+        "token_fingerprint": "276be2c5"
+      },
+      "step_2_verification": {
+        "verifier_invoked": true,
+        "token_recognized": true,
+        "claims_present": true,
+        "claims_subject": "alice_andhare",
+        "error_code": null
+      },
+      "step_3_resolution": {
+        "final_status": "authenticated",
+        "resolved_subject": "alice_andhare",
+        "error_message": null
+      },
+      "log_records_count": 5
+    },
+    "invariants": {
+      "invariant_missing_token": true,
+      "invariant_invalid_token": true,
+      "invariant_valid_token": true,
+      "invariant_logs_redacted": true,
+      "all_invariants_hold": true
+    }
+  },
+  {
+    "scenario": "known_token_bob",
+    "trace": {
+      "step_1_extraction": {
+        "has_auth_header": true,
+        "is_bearer_format": true,
+        "token_extracted": true,
+        "token_fingerprint": "2f7361a2"
+      },
+      "step_2_verification": {
+        "verifier_invoked": true,
+        "token_recognized": true,
+        "claims_present": true,
+        "claims_subject": "bob_retail",
+        "error_code": null
+      },
+      "step_3_resolution": {
+        "final_status": "authenticated",
+        "resolved_subject": "bob_retail",
+        "error_message": null
+      },
+      "log_records_count": 7
+    },
+    "invariants": {
+      "invariant_missing_token": true,
+      "invariant_invalid_token": true,
+      "invariant_valid_token": true,
+      "invariant_logs_redacted": true,
+      "all_invariants_hold": true
+    }
+  }
+]
