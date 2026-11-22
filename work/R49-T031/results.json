@@ -1,0 +1,34 @@
+{
+  "scenario_1_asymmetric": {
+    "negotiated": {
+      "expected": [
+        "tools"
+      ],
+      "actual": [
+        "tools"
+      ],
+      "match": true
+    },
+    "search_dispatch": {
+      "top_result_id": "prod-001",
+      "top_result_name": "Trail Runner Pro Shoes",
+      "similarity": 0.5812
+    },
+    "resources_rejection": {
+      "rejected_before_dispatch": true,
+      "rejection_message": "Capability 'resources' is not negotiated for this session. Negotiated set: ['tools']. Client offered: ['resources', 'tools'], Server offered: ['prompts', 'tools']. Invocation rejected before dispatch.",
+      "handler_execution_count": 0
+    }
+  },
+  "scenario_2_smallest_valid": {
+    "negotiated": [
+      "tools"
+    ],
+    "result_id": "prod-003",
+    "result_name": "Alpine Trekking Backpack"
+  },
+  "scenario_3_disjoint": {
+    "negotiated": [],
+    "is_empty": true
+  }
+}
