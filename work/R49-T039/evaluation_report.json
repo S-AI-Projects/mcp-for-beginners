@@ -1,0 +1,35 @@
+{
+  "status": "PASSED",
+  "configurations_evaluated": [
+    {
+      "config_name": "Config 1: Minimal Single-Call",
+      "input_size": 1,
+      "total_calls": 1,
+      "valid_passed": 1,
+      "invalid_rejected": 0,
+      "unauthorized_executed": 0,
+      "correctness_rate": 100.0,
+      "trade_off_summary": "Lowest latency and overhead; tests single-invocation correctness without concurrency or cross-request interference."
+    },
+    {
+      "config_name": "Config 2: Standard Dual-Tool Pair",
+      "input_size": 2,
+      "total_calls": 2,
+      "valid_passed": 2,
+      "invalid_rejected": 0,
+      "unauthorized_executed": 0,
+      "correctness_rate": 100.0,
+      "trade_off_summary": "Verifies complete allowlist coverage; negligible dispatch latency increase with 100% precision."
+    },
+    {
+      "config_name": "Config 3: Mixed Boundary Batch",
+      "input_size": 6,
+      "total_calls": 6,
+      "valid_passed": 3,
+      "invalid_rejected": 3,
+      "unauthorized_executed": 0,
+      "correctness_rate": 100.0,
+      "trade_off_summary": "Evaluates resilience against malformed and unauthorized inputs; ensures failed calls do not pollute state or impede subsequent operations."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "contract_test_cases": [
+    {
+      "id": 1,
+      "tool": "add",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 5, "tool": "add"}
+    },
+    {
+      "id": 2,
+      "tool": "multiply",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 6, "tool": "multiply"}
+    },
+    {
+      "id": 3,
+      "tool": "unauthorized_cmd",
+      "params": {"a": 1, "b": 1},
+      "expected_error": {"code": -32601, "message_contains": "not allowlisted"}
+    },
+    {
+      "id": 4,
+      "tool": "add",
+      "params": {"a": "2", "b": 3},
+      "expected_error": {"code": -32602, "message_contains": "must be numeric"}
+    }
+  ],
+  "evaluation_configurations": [
+    {
+      "name": "Config 1: Minimal Single-Call",
+      "size": 1,
+      "expected_correctness": 100.0
+    },
+    {
+      "name": "Config 2: Standard Dual-Tool Pair",
+      "size": 2,
+      "expected_correctness": 100.0
+    },
+    {
+      "name": "Config 3: Mixed Boundary Batch",
+      "size": 6,
+      "expected_correctness": 100.0
+    }
+  ]
+}
