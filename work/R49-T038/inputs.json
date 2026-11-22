@@ -1,0 +1,59 @@
+{
+  "contract_test_cases": [
+    {
+      "id": 1,
+      "tool": "add",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 5, "tool": "add"}
+    },
+    {
+      "id": 2,
+      "tool": "multiply",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 6, "tool": "multiply"}
+    },
+    {
+      "id": 3,
+      "tool": "power",
+      "params": {"a": 2, "b": 3},
+      "expected_error": {"code": -32601, "message_contains": "not allowlisted"}
+    },
+    {
+      "id": 4,
+      "tool": "add",
+      "params": {"a": "2", "b": 3},
+      "expected_error": {"code": -32602, "message_contains": "must be numeric"}
+    }
+  ],
+  "failure_recovery_steps": [
+    {
+      "step": 1,
+      "name": "initial_valid_call",
+      "request": {"id": 10, "tool": "add", "params": {"a": 2, "b": 3}},
+      "expect_success": true
+    },
+    {
+      "step": 2,
+      "name": "missing_data_failure",
+      "request": {"id": 20, "tool": "add", "params": {"a": 42}},
+      "expect_success": false,
+      "expected_error_code": -32602,
+      "expected_error_message": "Missing required parameter 'b'"
+    },
+    {
+      "step": 3,
+      "name": "invalid_type_failure",
+      "request": {"id": 30, "tool": "multiply", "params": {"a": "2", "b": 3}},
+      "expect_success": false,
+      "expected_error_code": -32602,
+      "expected_error_message": "must be numeric"
+    },
+    {
+      "step": 4,
+      "name": "recovery_valid_call",
+      "request": {"id": 40, "tool": "multiply", "params": {"a": 2, "b": 3}},
+      "expect_success": true,
+      "expected_value": 6
+    }
+  ]
+}

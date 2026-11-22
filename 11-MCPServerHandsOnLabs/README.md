@@ -140,6 +140,26 @@ Each lab includes:
 - **Progressive complexity** - Building from simple to advanced
 - **Validation steps** - Verify your implementation works
 
+## 🧪 Applied Labs
+
+### Typed Tool Dispatch & Failure Recovery (R49-T038)
+For a concrete implementation demonstrating strict tool allowlist dispatch, missing data validation, and clean state recovery on subsequent valid inputs, see [Applied Lab R49-T038](applied-labs/r49-t038/README.md).
+
+- **Implementation**: [`11-MCPServerHandsOnLabs/applied-labs/r49-t038/example.py`](applied-labs/r49-t038/example.py)
+- **Unit & Contract Tests**: [`11-MCPServerHandsOnLabs/applied-labs/r49-t038/test_example.py`](applied-labs/r49-t038/test_example.py)
+- **Exact Invocation**:
+  ```bash
+  python3 11-MCPServerHandsOnLabs/applied-labs/r49-t038/example.py
+  python3 -m unittest discover -s 11-MCPServerHandsOnLabs/applied-labs/r49-t038 -p "test_*.py" -v
+  ```
+- **Fixture & Expected Output**:
+  - `add(2, 3)` &rarr; `5`
+  - `multiply(2, 3)` &rarr; `6`
+  - Unknown tool &rarr; JSON-RPC error `-32601` (`Method not found`)
+  - String parameter `a="2"` &rarr; JSON-RPC error `-32602` (`Invalid params`)
+  - Missing parameter `b` &rarr; JSON-RPC error `-32602` (`Missing required parameter 'b'`)
+  - Subsequent call `multiply(2, 3)` recovers immediately &rarr; `6`
+
 ## 🌟 Community and Support
 
 ### Get Help
