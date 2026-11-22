@@ -1,0 +1,190 @@
+[
+  {
+    "fixture_id": "scenario_1_add_valid",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    },
+    "actual": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "scenario_2_multiply_valid",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    },
+    "actual": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null
+    }
+  },
+  {
+    "fixture_id": "scenario_3_unknown_tool",
+    "call": {
+      "tool": "power",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "tool": "power",
+      "result": null,
+      "error_code": "UNKNOWN_TOOL"
+    },
+    "actual": {
+      "success": false,
+      "tool": "power",
+      "result": null,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'power' is not in the allowlist. Allowed: ['add', 'multiply'].",
+        "details": {
+          "tool": "power",
+          "allowed": [
+            "add",
+            "multiply"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_4_invalid_string_a",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error_code": "INVALID_ARGUMENT"
+    },
+    "actual": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got str.",
+        "details": {
+          "param": "a",
+          "value": "2",
+          "type": "str"
+        }
+      }
+    }
+  },
+  {
+    "fixture_id": "comparative_cross_verification",
+    "status": "PASSED",
+    "comparisons": [
+      {
+        "tool": "add",
+        "arguments": {
+          "a": 2,
+          "b": 3
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 5,
+        "reference_result": 5,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      },
+      {
+        "tool": "multiply",
+        "arguments": {
+          "a": 2,
+          "b": 3
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 6,
+        "reference_result": 6,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      },
+      {
+        "tool": "add",
+        "arguments": {
+          "a": 0,
+          "b": 0
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 0,
+        "reference_result": 0,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      },
+      {
+        "tool": "multiply",
+        "arguments": {
+          "a": 1,
+          "b": 1
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 1,
+        "reference_result": 1,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      },
+      {
+        "tool": "add",
+        "arguments": {
+          "a": -5,
+          "b": 12
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 7,
+        "reference_result": 7,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      },
+      {
+        "tool": "multiply",
+        "arguments": {
+          "a": 4,
+          "b": 2.5
+        },
+        "dispatcher_success": true,
+        "dispatcher_result": 10.0,
+        "reference_result": 10.0,
+        "agrees": true,
+        "notes": "Results match perfectly"
+      }
+    ]
+  }
+]

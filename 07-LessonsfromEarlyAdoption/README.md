@@ -557,6 +557,67 @@ These resources accelerate development, promote standardization, and help ensure
 - Performance benchmarking across different MCP implementations
 - Formal verification methods for MCP servers
 
+## 🧪 Applied Lab: Tool Dispatch Validation and Comparative Verification (Task R49-T023)
+
+A key lesson from early adopters in production is ensuring tool execution fidelity: complex dispatch pipelines and type coercion layers must be cross-verified against an independent reference calculation and an explicit expected-result truth table on identical inputs.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t023/example.py](./applied-labs/r49-t023/example.py)**  
+👉 **[applied-labs/r49-t023/test_example.py](./applied-labs/r49-t023/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating allowlisting, strict argument validation, and comparative verification against an independent reference oracle. It does not implement full async networking or remote MCP transports. No external AI models, GPUs, or cloud APIs are required.
+
+### Exact Invocation
+
+Run the comparative verification demo:
+```bash
+python3 07-LessonsfromEarlyAdoption/applied-labs/r49-t023/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 07-LessonsfromEarlyAdoption/applied-labs/r49-t023 -p "test_*.py"
+```
+
+### Comparative Verification on Identical Inputs
+
+| Scenario | Input Payload | Dispatcher Result | Independent Reference | Expected Table | Status |
+|---|---|---|---|---|---|
+| Normal `add` | `{"tool": "add", "arguments": {"a": 2, "b": 3}}` | `5` | `5` | `5` | **Agrees** |
+| Normal `multiply` | `{"tool": "multiply", "arguments": {"a": 2, "b": 3}}` | `6` | `6` | `6` | **Agrees** |
+| Additive Identity | `{"tool": "add", "arguments": {"a": 0, "b": 0}}` | `0` | `0` | `0` | **Agrees** |
+| Multiplicative Identity | `{"tool": "multiply", "arguments": {"a": 1, "b": 1}}` | `1` | `1` | `1` | **Agrees** |
+| Negative / Float | `{"tool": "multiply", "arguments": {"a": 4, "b": 2.5}}` | `10.0` | `10.0` | `10.0` | **Agrees** |
+
+### Structured Error Scenarios
+
+* **Unknown Tool** (`"power"`):
+  ```json
+  {
+    "success": false,
+    "tool": "power",
+    "result": null,
+    "error": {
+      "code": "UNKNOWN_TOOL",
+      "message": "Tool 'power' is not in the allowlist. Allowed: ['add', 'multiply']."
+    }
+  }
+  ```
+* **Invalid Argument Type** (`a: "2"`):
+  ```json
+  {
+    "success": false,
+    "tool": "add",
+    "result": null,
+    "error": {
+      "code": "INVALID_ARGUMENT",
+      "message": "Argument 'a' must be a numeric value (int or float), got str."
+    }
+  }
+  ```
+* **Isolation Guarantee**: A failed call halts immediately and executes zero tool handlers (`add_call_count == 0`, `multiply_call_count == 0`).
+
 ## Conclusion
 
 The Model Context Protocol (MCP) is rapidly shaping the future of standardized, secure, and interoperable AI integration across industries. Through the case studies and hands-on projects in this lesson, you've seen how early adopters—including Microsoft and Azure—are leveraging MCP to solve real-world challenges, accelerate AI adoption, and ensure compliance, security, and scalability. MCP's modular approach enables organizations to connect large language models, tools, and enterprise data in a unified, auditable framework. As MCP continues to evolve, staying engaged with the community, exploring open-source resources, and applying best practices will be key to building robust, future-ready AI solutions.
