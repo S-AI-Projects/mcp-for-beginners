@@ -86,6 +86,98 @@ for supported protocol revisions. See the
 - [Rust SDK](https://github.com/modelcontextprotocol/rust-sdk) - The official Rust implementation
 - [Go SDK](https://github.com/modelcontextprotocol/go-sdk) - The official Go implementation
 
+## 🧪 Applied Lab: Tool Dispatch and Argument Validation (Task R49-T022)
+
+This section demonstrates local JSON tool dispatching with an explicit allowlist and strict numeric validation for calculator operations `add(a, b)` and `multiply(a, b)`.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t022/example.py](./applied-labs/r49-t022/example.py)**  
+👉 **[applied-labs/r49-t022/test_example.py](./applied-labs/r49-t022/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating tool name allowlisting, parameter schema enforcement, and structured error responses. It does not implement full MCP transport layers (stdio or HTTP streaming), networking, or async IPC. No cloud services, GPUs, or external AI providers are required.
+
+### Exact Boundary Decision
+
+* **Allowed Tools**: Strictly limited to `{"add", "multiply"}`. Any unlisted tool name produces an `UNKNOWN_TOOL` structured error and invokes zero handlers.
+* **Argument Types**: Arguments `a` and `b` must be real numbers (`int` or `float`).
+* **Boolean Rejection**: In Python, `bool` is a subclass of `int` (`isinstance(True, int) == True`). In strict tool API contracts, boolean values are **not** valid numbers and are explicitly rejected with an `INVALID_ARGUMENT` structured error.
+* **Failure Isolation**: A failed call halts immediately and prevents any subsequent or alternative tool execution (`add_call_count == 0`, `multiply_call_count == 0`).
+
+### Exact Invocation
+
+Run the example demonstration:
+```bash
+python3 03-GettingStarted/applied-labs/r49-t022/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 03-GettingStarted/applied-labs/r49-t022 -p "test_*.py"
+```
+
+### Fixtures & Expected Outputs
+
+#### Scenario 1: Normal Valid `add(2, 3)`
+* **Input**: `{"tool": "add", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "tool": "add",
+    "result": 5,
+    "error": null
+  }
+  ```
+
+#### Scenario 2: Normal Valid `multiply(2, 3)`
+* **Input**: `{"tool": "multiply", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "tool": "multiply",
+    "result": 6,
+    "error": null
+  }
+  ```
+
+#### Scenario 3: Smallest Valid Boundaries
+* **Input (Additive Identity)**: `{"tool": "add", "arguments": {"a": 0, "b": 0}}`
+  * **Result**: `0`
+* **Input (Multiplicative Identity)**: `{"tool": "multiply", "arguments": {"a": 1, "b": 1}}`
+  * **Result**: `1`
+
+#### Scenario 4: Invalid — Unknown Tool
+* **Input**: `{"tool": "divide", "arguments": {"a": 10, "b": 2}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": false,
+    "tool": "divide",
+    "result": null,
+    "error": {
+      "code": "UNKNOWN_TOOL",
+      "message": "Tool 'divide' is not in the allowlist. Allowed tools: ['add', 'multiply']."
+    }
+  }
+  ```
+
+#### Scenario 5: Invalid — String Argument `a`
+* **Input**: `{"tool": "add", "arguments": {"a": "2", "b": 3}}`
+* **Expected Output**:
+  ```json
+  {
+    "success": false,
+    "tool": "add",
+    "result": null,
+    "error": {
+      "code": "INVALID_ARGUMENT",
+      "message": "Argument 'a' must be a numeric value (int or float), got str."
+    }
+  }
+  ```
+
 ## Key Takeaways
 
 - Setting up an MCP development environment is straightforward with language-specific SDKs
