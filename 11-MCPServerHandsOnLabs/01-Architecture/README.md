@@ -614,6 +614,44 @@ class QueryCache:
         return hashlib.sha256(key_data.encode()).hexdigest()
 ```
 
+## 🧪 Applied Labs
+
+### [Applied Lab: Capability Negotiation — Comparing Two Approaches (R49-T032)](applied-labs/r49-t032/README.md)
+
+This applied extension analyzes capability negotiation within Layer 1 (Protocol Layer) of an MCP server architecture by comparing a direct stateful implementation against an independent calculation and explicit truth table reference:
+- **Capability Intersection**: Client `{tools, resources}` and Server `{tools, prompts}` negotiate `{tools}` across all approaches.
+- **Pre-Dispatch Feature Gating**: Invocations of unnegotiated capabilities (such as `resources`) are strictly rejected before dispatch, ensuring internal handlers are never reached.
+- **Side-by-Side Equivalence**: Direct implementation and independent table lookup yield identical negotiated sets across all identical test inputs.
+- **Scope & Limitations (Simulation)**: Uses a deterministic local store performance fixture (`LOCAL_FIXTURE_STORES`) and standard library Python without database or network dependencies.
+
+#### Exact Invocation:
+```bash
+python3 11-MCPServerHandsOnLabs/01-Architecture/applied-labs/r49-t032/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/01-Architecture/applied-labs/r49-t032 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[Test Inputs]
+  Client Capabilities : ['resources', 'tools']
+  Server Capabilities : ['prompts', 'tools']
+  Approach 1 (Direct) : ['tools']
+  Approach 2 (Calc)   : ['tools']
+  Approach 2 (Table)  : ['tools']
+  Equivalence Match   : Direct == Calc: True | Direct == Table: True
+  Pre-Dispatch Reject : REJECTED_BEFORE_DISPATCH (Calls: 0)
+
+[Detailed Invocation Verification on Primary Scenario]
+  Valid call 'tools/get_store_metrics' -> Success: Seattle ($14,250.00)
+  Unnegotiated call 'resources/read_store_schema' -> Correctly Rejected Before Dispatch
+```
+
+For complete comparison tables and test documentation, see the [Applied Lab README](applied-labs/r49-t032/README.md).
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should understand:
