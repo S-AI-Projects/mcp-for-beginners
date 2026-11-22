@@ -1,0 +1,28 @@
+STDOUT:
+
+STDERR:
+test_applied_question_1_predict_output (test_example.TestAppliedQuestionsDispatcher.test_applied_question_1_predict_output)
+Verifies Question 1 executable check passes against dispatcher. ... ok
+test_applied_question_2_diagnose_failure (test_example.TestAppliedQuestionsDispatcher.test_applied_question_2_diagnose_failure)
+Verifies Question 2 executable check passes against dispatcher. ... ok
+test_applied_question_3_choose_boundary_policy (test_example.TestAppliedQuestionsDispatcher.test_applied_question_3_choose_boundary_policy)
+Verifies Question 3 executable check passes against dispatcher. ... ok
+test_baseline_contract_add (test_example.TestAppliedQuestionsDispatcher.test_baseline_contract_add)
+add(2, 3) -> 5 ... ok
+test_baseline_contract_multiply (test_example.TestAppliedQuestionsDispatcher.test_baseline_contract_multiply)
+multiply(2, 3) -> 6 ... ok
+test_failed_call_cannot_execute_another_tool (test_example.TestAppliedQuestionsDispatcher.test_failed_call_cannot_execute_another_tool)
+A failure in add does not trigger multiply or invoke handlers. ... ok
+test_missing_argument_handling (test_example.TestAppliedQuestionsDispatcher.test_missing_argument_handling)
+Missing parameter triggers structured error. ... ok
+test_string_argument_structured_error (test_example.TestAppliedQuestionsDispatcher.test_string_argument_structured_error)
+String argument 'a' returns structured error without executing tool. ... ok
+test_unknown_tool_structured_error (test_example.TestAppliedQuestionsDispatcher.test_unknown_tool_structured_error)
+Unknown tool returns structured error without executing any tool. ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+OK
+
+EXIT_CODE: 0

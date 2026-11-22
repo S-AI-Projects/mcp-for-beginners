@@ -1,0 +1,4 @@
+git_commit: bc9ac42e3b6d57a335c84eb7e07a5aa9ed12e721
+python_version: 3.14.7
+platform: Darwin 27.2.0 (arm64)
+test_framework: unittest (standard library)

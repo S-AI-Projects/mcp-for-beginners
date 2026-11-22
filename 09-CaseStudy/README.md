@@ -175,6 +175,30 @@ These examples collectively demonstrate that MCP is not merely a theoretical fra
 - [GitHub MCP Registry — Accelerating Agentic Integration](https://github.com/mcp)
 - [MCP Community Examples](https://github.com/microsoft/mcp)
 
+## Applied Lab: Applied Contract Questions and Executable Verification (R49-T030)
+
+For practical exercises exploring contract validation, failure diagnosis, and boundary policy design, see [applied-labs/r49-t030/example.py](./applied-labs/r49-t030/example.py).
+
+This lab demonstrates:
+1. **Allowlist Dispatch & Strict Isolation**: Only explicitly registered tools (`add`, `multiply`) can execute. Malformed requests (e.g. `tool="unknown"`, `a="2"`) immediately return structured errors without invoking underlying tool handlers or cascading into secondary executions.
+2. **Predicting Output (Q1)**: Predicting status and payload for `multiply(2.5, 4)` -> `{"status": "success", "result": 10.0}` with an executable verification check.
+3. **Diagnosing Failure (Q2)**: Identifying root cause schema rejections (`INVALID_ARGUMENT` for string arguments) and verifying handler isolation (`execution_counts == 0`).
+4. **Boundary Policy Selection (Q3)**: Distinguishing Python runtime semantics (`isinstance(True, int) == True`) from cross-language JSON schema rules, enforcing strict rejection of boolean values to protect protocol integrity.
+
+### Verification Fixtures & Execution
+
+```bash
+# Run unit tests directly
+python3 -m unittest discover -s 09-CaseStudy/applied-labs/r49-t030 -p "test_*.py"
+```
+
+Sample baseline fixture output:
+- `add(2, 3)` -> `{"status": "success", "result": 5}`
+- `multiply(2, 3)` -> `{"status": "success", "result": 6}`
+- `add("2", 3)` -> `{"status": "error", "error": {"code": "INVALID_ARGUMENT", "parameter": "a", "message": "Argument 'a' must be a number (int or float), got str: '2'"}}`
+
+> **Note on Simulation Scope**: This local contract fixture models protocol routing, schema validation, and failure isolation within a deterministic in-process simulation. It does not implement physical network transports (stdio, SSE, HTTP Streamable) or connect to external production AI models.
+
 ## What's Next
 
 - Previous: [Module 8: Best Practices](../08-BestPractices/README.md)
