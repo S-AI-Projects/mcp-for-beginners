@@ -1,0 +1,26 @@
+{
+  "missing_token": {
+    "has_authorization_header": false,
+    "header_scheme": null,
+    "expected_status": "unauthenticated",
+    "expected_subject": null
+  },
+  "unknown_token": {
+    "has_authorization_header": true,
+    "header_scheme": "Bearer",
+    "expected_status": "invalid",
+    "expected_subject": null
+  },
+  "known_token_alice": {
+    "has_authorization_header": true,
+    "header_scheme": "Bearer",
+    "expected_status": "authenticated",
+    "expected_subject": "alice_andhare"
+  },
+  "known_token_bob": {
+    "has_authorization_header": true,
+    "header_scheme": "Bearer",
+    "expected_status": "authenticated",
+    "expected_subject": "bob_retail"
+  }
+}

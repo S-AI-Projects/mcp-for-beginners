@@ -1,0 +1,38 @@
+{
+  "missing_token": {
+    "status": "unauthenticated",
+    "resolved_subject": null,
+    "error_message": "Missing bearer token in Authorization header.",
+    "step_1_token_extracted": false,
+    "step_2_verifier_invoked": false,
+    "step_2_token_recognized": false,
+    "invariants_satisfied": true
+  },
+  "unknown_token": {
+    "status": "invalid",
+    "resolved_subject": null,
+    "error_message": "Invalid or unrecognized bearer token.",
+    "step_1_token_extracted": true,
+    "step_2_verifier_invoked": true,
+    "step_2_token_recognized": false,
+    "invariants_satisfied": true
+  },
+  "known_token_alice": {
+    "status": "authenticated",
+    "resolved_subject": "alice_andhare",
+    "error_message": null,
+    "step_1_token_extracted": true,
+    "step_2_verifier_invoked": true,
+    "step_2_token_recognized": true,
+    "invariants_satisfied": true
+  },
+  "known_token_bob": {
+    "status": "authenticated",
+    "resolved_subject": "bob_retail",
+    "error_message": null,
+    "step_1_token_extracted": true,
+    "step_2_verifier_invoked": true,
+    "step_2_token_recognized": true,
+    "invariants_satisfied": true
+  }
+}

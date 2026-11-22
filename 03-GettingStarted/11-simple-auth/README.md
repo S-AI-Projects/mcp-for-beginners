@@ -979,6 +979,56 @@ Instead of using Basic Auth, let's use JWT.
 
 Add the RBAC per tool that we describe in section "Add RBAC to MCP".
 
+## 🧪 Applied Labs
+
+### [Applied Lab: Injected Verifier, State Invariants & Log Redaction (R49-T033)](applied-labs/r49-t033/README.md)
+
+This applied extension demonstrates a robust three-stage authentication pipeline implementing verifier dependency injection and strict log sanitization:
+- **Identity Differentiation**: Validates a local bearer-token fixture through an injected verifier, resolving:
+  - Missing token $\rightarrow$ `unauthenticated` (verifier not invoked)
+  - Unknown token $\rightarrow$ `invalid` (unrecognized token, no subject)
+  - Known token $\rightarrow$ `subject` (claims resolved to authenticated subject)
+- **Zero Token Log Exposure**: Ensures no raw bearer token string ever appears in application logs.
+- **State Invariants**: Records intermediate states (Extraction $\rightarrow$ Verification $\rightarrow$ Resolution) and enforces mathematical invariants linking intermediate states to final identity.
+- **Scope & Limitations (Simulation)**: Uses a local in-memory token dictionary (`LOCAL_TOKEN_FIXTURE`) without requiring real IdPs, network calls, or paid credentials.
+
+#### Exact Invocation:
+```bash
+python3 03-GettingStarted/11-simple-auth/applied-labs/r49-t033/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 03-GettingStarted/11-simple-auth/applied-labs/r49-t033 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[Scenario: Missing Token]
+  Step 1 Extraction   : token_extracted=False, fingerprint=None
+  Step 2 Verification : invoked=False, recognized=False, claims_sub=None
+  Step 3 Resolution   : status=unauthenticated, subject=None
+  Invariants Hold     : True
+
+[Scenario: Invalid / Unknown Token]
+  Step 1 Extraction   : token_extracted=True, fingerprint=39f6699a
+  Step 2 Verification : invoked=True, recognized=False, claims_sub=None
+  Step 3 Resolution   : status=invalid, subject=None
+  Invariants Hold     : True
+
+[Scenario: Valid Known Token (Alice)]
+  Step 1 Extraction   : token_extracted=True, fingerprint=276be2c5
+  Step 2 Verification : invoked=True, recognized=True, claims_sub=alice_andhare
+  Step 3 Resolution   : status=authenticated, subject=alice_andhare
+  Invariants Hold     : True
+
+[Log Redaction Audit]
+  Total log entries recorded : 7
+  Raw token leaks detected   : 0 (Expected: 0)
+```
+
+For full details, see the [Applied Lab README](applied-labs/r49-t033/README.md).
+
 ## Summary
 
 You've hopefully learned a lot in this chapter, from no security at all, to basic security, to JWT and how it can be added to MCP.
