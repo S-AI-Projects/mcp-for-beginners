@@ -1,0 +1,19 @@
+{
+  "scenario_1_two_lines": {
+    "messages_dispatched": 2,
+    "request_ids_preserved": [
+      101,
+      "req-xyz-2"
+    ],
+    "parse_errors": 0,
+    "stdout_valid_json": true,
+    "diagnostics_in_stderr": true,
+    "diagnostics_in_stdout": false
+  },
+  "scenario_2_malformed_json": {
+    "parse_errors_encountered": 1,
+    "error_code": -32700,
+    "error_message": "Parse error: Invalid JSON framing at line 2",
+    "diagnostic_written_to_stderr": true
+  }
+}

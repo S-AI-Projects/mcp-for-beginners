@@ -1,0 +1,14 @@
+{
+  "scenario_1_two_lines": {
+    "raw_input": "{\"jsonrpc\": \"2.0\", \"id\": 101, \"method\": \"ping\"}\n{\"jsonrpc\": \"2.0\", \"id\": \"req-xyz-2\", \"method\": \"tools/list\"}\n",
+    "expected_messages": 2,
+    "expected_ids": [
+      101,
+      "req-xyz-2"
+    ]
+  },
+  "scenario_2_malformed_json": {
+    "raw_input": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"ping\"}\n{\"malformed_json\": missing_quotes\n",
+    "expected_parse_errors": 1
+  }
+}
