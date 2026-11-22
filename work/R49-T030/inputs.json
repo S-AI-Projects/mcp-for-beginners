@@ -1,0 +1,52 @@
+[
+  {
+    "scenario": "add_normal",
+    "payload": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    }
+  },
+  {
+    "scenario": "multiply_normal",
+    "payload": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    }
+  },
+  {
+    "scenario": "unknown_tool",
+    "payload": {
+      "tool": "power",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    }
+  },
+  {
+    "scenario": "string_argument_a",
+    "payload": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    }
+  },
+  {
+    "scenario": "boolean_boundary_rejection",
+    "payload": {
+      "tool": "add",
+      "arguments": {
+        "a": true,
+        "b": 3
+      }
+    }
+  }
+]

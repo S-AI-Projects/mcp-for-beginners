@@ -1,0 +1,116 @@
+[
+  {
+    "scenario": "add_normal",
+    "expected": {
+      "status": "success",
+      "result": 5
+    },
+    "actual": {
+      "status": "success",
+      "result": 5
+    },
+    "match": true
+  },
+  {
+    "scenario": "multiply_normal",
+    "expected": {
+      "status": "success",
+      "result": 6
+    },
+    "actual": {
+      "status": "success",
+      "result": 6
+    },
+    "match": true
+  },
+  {
+    "scenario": "unknown_tool",
+    "expected": {
+      "status": "error",
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'power' is not in allowlist: ['add', 'multiply']"
+      }
+    },
+    "actual": {
+      "status": "error",
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'power' is not in allowlist: ['add', 'multiply']"
+      }
+    },
+    "match": true
+  },
+  {
+    "scenario": "string_argument_a",
+    "expected": {
+      "status": "error",
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "parameter": "a",
+        "message": "Argument 'a' must be a number (int or float), got str: '2'"
+      }
+    },
+    "actual": {
+      "status": "error",
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "parameter": "a",
+        "message": "Argument 'a' must be a number (int or float), got str: '2'"
+      }
+    },
+    "match": true
+  },
+  {
+    "scenario": "boolean_boundary_rejection",
+    "expected": {
+      "status": "error",
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "parameter": "a",
+        "message": "Argument 'a' must be a number (int or float), got bool: True"
+      }
+    },
+    "actual": {
+      "status": "error",
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "parameter": "a",
+        "message": "Argument 'a' must be a number (int or float), got bool: True"
+      }
+    },
+    "match": true
+  },
+  {
+    "question_id": "Q1_PREDICT_OUTPUT",
+    "category": "predict_output",
+    "factual_answer": {
+      "status": "success",
+      "result": 10.0
+    },
+    "rationale": "The tool 'multiply' is in the allowlist. Arguments a=2.5 (float) and b=4 (int) pass numeric validation. The multiplication handler computes 2.5 * 4 = 10.0.",
+    "verification_passed": true
+  },
+  {
+    "question_id": "Q2_DIAGNOSE_FAILURE",
+    "category": "diagnose_failure",
+    "factual_answer": {
+      "code": "INVALID_ARGUMENT",
+      "parameter": "a",
+      "handler_invoked": false
+    },
+    "rationale": "Argument 'a' has value '2' of type string. Numeric validation fails before handler dispatch. The system returns error code 'INVALID_ARGUMENT' and does not invoke the 'add' handler, keeping execution counts at zero.",
+    "verification_passed": true
+  },
+  {
+    "question_id": "Q3_BOUNDARY_POLICY",
+    "category": "choose_boundary_policy",
+    "factual_answer": {
+      "policy": "STRICT_REJECT_BOOLEANS",
+      "decision": "REJECT",
+      "error_code": "INVALID_ARGUMENT"
+    },
+    "rationale": "In Python, bool is a subclass of int (isinstance(True, int) is True). However, in JSON and MCP protocols, booleans and numbers are separate primitive types. Coercing booleans to numbers causes silent semantic corruption in tool arguments. Strict rejection enforces cross-language protocol integrity.",
+    "verification_passed": true
+  }
+]
