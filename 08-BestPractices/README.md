@@ -2371,6 +2371,26 @@ public async Task Server_ResourceEndpoint_ReturnsCorrectSchema()
 
 A comprehensive testing strategy is essential for developing reliable, high-quality MCP servers. By implementing the best practices and tips outlined in this guide, you can ensure your MCP implementations meet the highest standards of quality, reliability, and performance.
 
+## 🧪 Applied Labs
+
+### Typed Tool Dispatch & Scenario Assessment (R49-T037)
+For a concrete implementation of MCP Best Practices regarding strict allowlist dispatch, parameter type validation, circuit isolation, and applied scenario assessment questions, see [Applied Lab R49-T037](applied-labs/r49-t037/README.md).
+
+- **Implementation**: [`08-BestPractices/applied-labs/r49-t037/example.py`](applied-labs/r49-t037/example.py)
+- **Unit & Contract Tests**: [`08-BestPractices/applied-labs/r49-t037/test_example.py`](applied-labs/r49-t037/test_example.py)
+- **Exact Invocation**:
+  ```bash
+  python3 08-BestPractices/applied-labs/r49-t037/example.py
+  python3 -m unittest discover -s 08-BestPractices/applied-labs/r49-t037 -p "test_*.py" -v
+  ```
+- **Fixture & Expected Output**:
+  - `add(2, 3)` &rarr; `5`
+  - `multiply(2, 3)` &rarr; `6`
+  - Unknown tool `subtract` &rarr; JSON-RPC error `-32601` (`Method not found`)
+  - String parameter `a="2"` &rarr; JSON-RPC error `-32602` (`Invalid params`)
+  - Executable checks for three applied questions: output prediction (`add(2.5, -0.5) -> 2.0`), failure diagnosis (`multiply('3', 4) -> -32602`, 0 calls), and boundary policy selection (`REJECT_IMMEDIATELY_NO_FALLBACK`).
+
+
 
 ## Key Takeaways
 
