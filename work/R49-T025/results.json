@@ -1,0 +1,117 @@
+[
+  {
+    "fixture_id": "scenario_1_support",
+    "query": "Please help me understand how this tool works",
+    "status": "PASSED",
+    "expected": {
+      "handler": "support",
+      "selected_intent": "help",
+      "matched_intents": [
+        "help"
+      ],
+      "success": true,
+      "service": "DeterministicSupportAdapter"
+    },
+    "actual": {
+      "handler": "support",
+      "selected_intent": "help",
+      "matched_intents": [
+        "help"
+      ],
+      "resolution_rule": "exact_rule_match: rule 'help' matched uniquely",
+      "success": true,
+      "data": {
+        "service": "DeterministicSupportAdapter",
+        "message": "Local support guidance: tutorials, FAQs, and documentation are available.",
+        "query": "Please help me understand how this tool works",
+        "adapter_type": "deterministic_local_mock"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_2_calculator",
+    "query": "Can you calculate 25 * 4 for the quarterly report?",
+    "status": "PASSED",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate"
+      ],
+      "result": 100.0,
+      "success": true,
+      "service": "DeterministicCalculatorAdapter"
+    },
+    "actual": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate"
+      ],
+      "resolution_rule": "exact_rule_match: rule 'calculate' matched uniquely",
+      "success": true,
+      "data": {
+        "service": "DeterministicCalculatorAdapter",
+        "result": 100.0,
+        "query": "Can you calculate 25 * 4 for the quarterly report?",
+        "adapter_type": "deterministic_local_mock"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_3_ambiguous",
+    "query": "Please help me calculate total margin: 100 - 45",
+    "status": "PASSED",
+    "expected": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate",
+        "help"
+      ],
+      "result": 55.0,
+      "success": true,
+      "service": "DeterministicCalculatorAdapter"
+    },
+    "actual": {
+      "handler": "calculator",
+      "selected_intent": "calculate",
+      "matched_intents": [
+        "calculate",
+        "help"
+      ],
+      "resolution_rule": "priority_resolution: 'calculate' (priority 1) selected over ['help'] following documented precedence",
+      "success": true,
+      "data": {
+        "service": "DeterministicCalculatorAdapter",
+        "result": 55.0,
+        "query": "Please help me calculate total margin: 100 - 45",
+        "adapter_type": "deterministic_local_mock"
+      }
+    }
+  },
+  {
+    "fixture_id": "scenario_4_fallback",
+    "query": "Check the weather in Seattle tomorrow",
+    "status": "PASSED",
+    "expected": {
+      "handler": "fallback",
+      "selected_intent": "unknown",
+      "matched_intents": [],
+      "success": true,
+      "service": "FallbackHandler"
+    },
+    "actual": {
+      "handler": "fallback",
+      "selected_intent": "unknown",
+      "matched_intents": [],
+      "resolution_rule": "default_fallback: no explicit intent rule matched",
+      "success": true,
+      "data": {
+        "service": "FallbackHandler",
+        "message": "Unrecognized intent. Available tools are 'support' and 'calculator'.",
+        "query": "Check the weather in Seattle tomorrow"
+      }
+    }
+  }
+]

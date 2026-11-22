@@ -1284,6 +1284,125 @@ class UtilityTool(DatabaseTool):
         }
 ```
 
+## 🧪 Applied Lab: Interface-Backed Tool Routing & Adapter Verification (Task R49-T025)
+
+This section demonstrates placing external tool dependencies (`support` and `calculator` services) behind callable interfaces (`ISupportService`, `ICalculatorService`) and providing deterministic local adapters to enable local testing without cloud resources.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t025/example.py](./applied-labs/r49-t025/example.py)**  
+👉 **[applied-labs/r49-t025/test_example.py](./applied-labs/r49-t025/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: The local adapters (`DeterministicSupportAdapter`, `DeterministicCalculatorAdapter`) provide deterministic, in-memory simulations of external services. No external APIs, GPUs, or cloud models are invoked.
+
+### Real-Service Behaviors NOT Established by this Mock Adapter
+
+To avoid unsupported claims about production environments, this deterministic mock explicitly **does not establish**:
+1. **Network Dynamics**: Real-world packet latency, timeouts, jitter, and intermittent TCP stream interruptions.
+2. **HTTP Protocol Semantics**: HTTP status codes (e.g., 401 Unauthorized, 429 Rate Limiting, 503 Overloaded).
+3. **Authentication Handshakes**: Token expiration, JWT verification, and dynamic OAuth2 / Microsoft Entra ID rotation.
+4. **Distributed Concurrency**: Database connection pool exhaustion, thread deadlocks, and race conditions.
+5. **Generative Model Reasoning**: Semantic fuzzy intent matching on unseen user prompts beyond configured regex patterns.
+
+### Exact Invocation
+
+Run the adapter demonstration:
+```bash
+python3 11-MCPServerHandsOnLabs/06-Tools/applied-labs/r49-t025/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/06-Tools/applied-labs/r49-t025 -p "test_*.py"
+```
+
+### Fixtures & Expected Outputs
+
+#### Scenario 1: Normal — Support Intent (`help` → `support`)
+* **Input Query**: `"Please help me understand how this tool works"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "service": "DeterministicSupportAdapter",
+      "message": "Local support guidance: tutorials, FAQs, and documentation are available.",
+      "adapter_type": "deterministic_local_mock"
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["help"],
+        "selected_intent": "help",
+        "handler_name": "support",
+        "resolution_rule": "exact_rule_match: rule 'help' matched uniquely"
+      }
+    }
+  }
+  ```
+
+#### Scenario 2: Normal — Calculation Intent (`calculate` → `calculator`)
+* **Input Query**: `"Can you calculate 25 * 4 for the quarterly report?"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "service": "DeterministicCalculatorAdapter",
+      "result": 100.0,
+      "adapter_type": "deterministic_local_mock"
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["calculate"],
+        "selected_intent": "calculate",
+        "handler_name": "calculator"
+      }
+    }
+  }
+  ```
+
+#### Scenario 3: Ambiguous Intent (`calculate` [Priority 1] > `help` [Priority 2])
+* **Input Query**: `"Please help me calculate total margin: 100 - 45"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "service": "DeterministicCalculatorAdapter",
+      "result": 55.0
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": ["calculate", "help"],
+        "selected_intent": "calculate",
+        "handler_name": "calculator",
+        "resolution_rule": "priority_resolution: 'calculate' (priority 1) selected over ['help'] following documented precedence"
+      }
+    }
+  }
+  ```
+
+#### Scenario 4: Failure & Fallback — Unrecognized Request
+* **Input Query**: `"Check the weather in Seattle tomorrow"`
+* **Expected Output**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "service": "FallbackHandler",
+      "message": "Unrecognized intent. Available tools are 'support' and 'calculator'."
+    },
+    "metadata": {
+      "audit": {
+        "matched_intents": [],
+        "selected_intent": "unknown",
+        "handler_name": "fallback",
+        "resolution_rule": "default_fallback: no explicit intent rule matched"
+      }
+    }
+  }
+  ```
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:
