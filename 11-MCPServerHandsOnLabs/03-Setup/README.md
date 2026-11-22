@@ -877,3 +877,28 @@ With your environment ready, continue to **[Lab 04: Database Design and Schema](
 ---
 
 **Next**: Environment ready? Continue with [Lab 04: Database Design and Schema](../04-Database/README.md)
+
+## Applied Example: Typed Tool Dispatch and Failure Recovery (R49-T008)
+
+This local Python example demonstrates typed tool dispatch using an explicit allowlist. It supports `add(a, b)` and `multiply(a, b)` and validates that both arguments are finite numbers before executing a tool.
+
+- [View implementation](applied-labs/r49-t008/example.py)
+- [View unit tests](applied-labs/r49-t008/test_example.py)
+
+### Run the example
+
+From the repository root:
+
+```bash
+python3 11-MCPServerHandsOnLabs/03-Setup/applied-labs/r49-t008/example.py
+```
+
+### Run the tests
+
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/03-Setup/applied-labs/r49-t008 -p "test_*.py" -v
+```
+
+### Scope and limitations
+
+This is a local JSON dispatch fixture, not a complete MCP server or transport implementation. It uses Python's standard library and does not connect to external tools, services, hardware, or networks.
