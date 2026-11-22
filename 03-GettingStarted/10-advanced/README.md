@@ -551,6 +551,25 @@ Extend the code you've been given with a number of tools, resources and prompt a
 
 *No solution given*
 
+## 🧪 Applied Labs
+
+### Low-Level Typed Tool Dispatch & Evaluation Experiment (R49-T039)
+For a concrete implementation demonstrating low-level server tool dispatch, strict numeric schema validation, circuit isolation, and a controlled evaluation experiment across three input sizes, see [Applied Lab R49-T039](applied-labs/r49-t039/README.md).
+
+- **Implementation**: [`03-GettingStarted/10-advanced/applied-labs/r49-t039/example.py`](applied-labs/r49-t039/example.py)
+- **Unit & Contract Tests**: [`03-GettingStarted/10-advanced/applied-labs/r49-t039/test_example.py`](applied-labs/r49-t039/test_example.py)
+- **Exact Invocation**:
+  ```bash
+  python3 03-GettingStarted/10-advanced/applied-labs/r49-t039/example.py
+  python3 -m unittest discover -s 03-GettingStarted/10-advanced/applied-labs/r49-t039 -p "test_*.py" -v
+  ```
+- **Fixture & Expected Output**:
+  - `add(2, 3)` &rarr; `5`
+  - `multiply(2, 3)` &rarr; `6`
+  - Unknown tool `unauthorized_cmd` &rarr; JSON-RPC error `-32601` (`Method not found`)
+  - String parameter `a="2"` &rarr; JSON-RPC error `-32602` (`Invalid params`)
+  - Evaluation experiment across 3 configurations (single-call, dual-tool pair, mixed boundary batch) reporting 100% correctness and 0 unauthorized executions.
+
 ## Summary
 
 In this chapter, we saw how low-level server approach worked and how that can help us create a nice architecture we can keep building on. We also discussed validation and you were shown how to work with validation libraries to create schemas for input validation.
