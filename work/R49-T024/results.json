@@ -1,0 +1,304 @@
+[
+  {
+    "fixture_id": "scenario_1_add_valid",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null,
+      "terminal_stage": "EXECUTED",
+      "terminal_status": "SUCCESS"
+    },
+    "actual": {
+      "success": true,
+      "tool": "add",
+      "result": 5,
+      "error": null,
+      "state_trace": [
+        {
+          "step": 1,
+          "stage": "INITIALIZED",
+          "status": "SUCCESS",
+          "details": {
+            "raw_call_type": "dict"
+          }
+        },
+        {
+          "step": 2,
+          "stage": "PARSED",
+          "status": "SUCCESS",
+          "details": {
+            "keys": [
+              "tool",
+              "arguments"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "stage": "ALLOWLIST_CHECKED",
+          "status": "SUCCESS",
+          "details": {
+            "verified_tool": "add"
+          }
+        },
+        {
+          "step": 4,
+          "stage": "SCHEMA_VALIDATED",
+          "status": "SUCCESS",
+          "details": {
+            "a": 2,
+            "b": 3
+          }
+        },
+        {
+          "step": 5,
+          "stage": "DISPATCHING",
+          "status": "SUCCESS",
+          "details": {
+            "target_handler": "add"
+          }
+        },
+        {
+          "step": 6,
+          "stage": "EXECUTED",
+          "status": "SUCCESS",
+          "details": {
+            "computed_result": 5
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture_id": "scenario_2_multiply_valid",
+    "call": {
+      "tool": "multiply",
+      "arguments": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null,
+      "terminal_stage": "EXECUTED",
+      "terminal_status": "SUCCESS"
+    },
+    "actual": {
+      "success": true,
+      "tool": "multiply",
+      "result": 6,
+      "error": null,
+      "state_trace": [
+        {
+          "step": 1,
+          "stage": "INITIALIZED",
+          "status": "SUCCESS",
+          "details": {
+            "raw_call_type": "dict"
+          }
+        },
+        {
+          "step": 2,
+          "stage": "PARSED",
+          "status": "SUCCESS",
+          "details": {
+            "keys": [
+              "tool",
+              "arguments"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "stage": "ALLOWLIST_CHECKED",
+          "status": "SUCCESS",
+          "details": {
+            "verified_tool": "multiply"
+          }
+        },
+        {
+          "step": 4,
+          "stage": "SCHEMA_VALIDATED",
+          "status": "SUCCESS",
+          "details": {
+            "a": 2,
+            "b": 3
+          }
+        },
+        {
+          "step": 5,
+          "stage": "DISPATCHING",
+          "status": "SUCCESS",
+          "details": {
+            "target_handler": "multiply"
+          }
+        },
+        {
+          "step": 6,
+          "stage": "EXECUTED",
+          "status": "SUCCESS",
+          "details": {
+            "computed_result": 6
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture_id": "scenario_3_invalid_unknown_tool",
+    "call": {
+      "tool": "divide",
+      "arguments": {
+        "a": 10,
+        "b": 2
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "tool": "divide",
+      "result": null,
+      "error_code": "UNKNOWN_TOOL",
+      "terminal_stage": "ALLOWLIST_CHECKED",
+      "terminal_status": "FAILURE"
+    },
+    "actual": {
+      "success": false,
+      "tool": "divide",
+      "result": null,
+      "error": {
+        "code": "UNKNOWN_TOOL",
+        "message": "Tool 'divide' is not in the allowlist. Allowed: ['add', 'multiply'].",
+        "details": {
+          "tool": "divide",
+          "allowed": [
+            "add",
+            "multiply"
+          ]
+        }
+      },
+      "state_trace": [
+        {
+          "step": 1,
+          "stage": "INITIALIZED",
+          "status": "SUCCESS",
+          "details": {
+            "raw_call_type": "dict"
+          }
+        },
+        {
+          "step": 2,
+          "stage": "PARSED",
+          "status": "SUCCESS",
+          "details": {
+            "keys": [
+              "tool",
+              "arguments"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "stage": "ALLOWLIST_CHECKED",
+          "status": "FAILURE",
+          "details": {
+            "requested_tool": "divide",
+            "allowed_tools": [
+              "add",
+              "multiply"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture_id": "scenario_4_invalid_string_a",
+    "call": {
+      "tool": "add",
+      "arguments": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "status": "PASSED",
+    "expected": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error_code": "INVALID_ARGUMENT",
+      "terminal_stage": "SCHEMA_VALIDATED",
+      "terminal_status": "FAILURE"
+    },
+    "actual": {
+      "success": false,
+      "tool": "add",
+      "result": null,
+      "error": {
+        "code": "INVALID_ARGUMENT",
+        "message": "Argument 'a' must be a numeric value (int or float), got str.",
+        "details": {
+          "param": "a",
+          "value": "2",
+          "type": "str"
+        }
+      },
+      "state_trace": [
+        {
+          "step": 1,
+          "stage": "INITIALIZED",
+          "status": "SUCCESS",
+          "details": {
+            "raw_call_type": "dict"
+          }
+        },
+        {
+          "step": 2,
+          "stage": "PARSED",
+          "status": "SUCCESS",
+          "details": {
+            "keys": [
+              "tool",
+              "arguments"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "stage": "ALLOWLIST_CHECKED",
+          "status": "SUCCESS",
+          "details": {
+            "verified_tool": "add"
+          }
+        },
+        {
+          "step": 4,
+          "stage": "SCHEMA_VALIDATED",
+          "status": "FAILURE",
+          "details": {
+            "param": "a",
+            "error": "Argument 'a' must be a numeric value (int or float), got str."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "fixture_id": "isolation_batch_failure",
+    "status": "PASSED",
+    "description": "Failed call successfully prevented second tool execution"
+  }
+]
