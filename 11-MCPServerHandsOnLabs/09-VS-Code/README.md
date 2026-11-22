@@ -1011,6 +1011,94 @@ export function deactivate() {}
 }
 ```
 
+## 🧪 Applied Lab: Tool Error Explanation and Next-Input Recovery (Task R49-T028)
+
+In interactive VS Code AI Chat sessions (such as GitHub Copilot agent mode calling MCP tools), conversational LLMs may occasionally omit required arguments or pass improper types. A robust MCP server provides structured diagnostic error explanations and seamlessly recovers on the immediate next valid input without corrupting session state.
+
+The complete local implementation is available at:
+👉 **[applied-labs/r49-t028/example.py](./applied-labs/r49-t028/example.py)**  
+👉 **[applied-labs/r49-t028/test_example.py](./applied-labs/r49-t028/test_example.py)**
+
+> [!NOTE]
+> **Simulation / Mock Notice**: This is a local contract fixture demonstrating error diagnostics and interactive multi-turn session recovery. It does not implement full async JSON-RPC networking or remote socket transports. No external AI models, GPUs, or cloud APIs are required.
+
+### Exact Invocation
+
+Run the multi-turn error explanation and recovery demo:
+```bash
+python3 11-MCPServerHandsOnLabs/09-VS-Code/applied-labs/r49-t028/example.py
+```
+
+Run the unit test suite:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/09-VS-Code/applied-labs/r49-t028 -p "test_*.py"
+```
+
+### Conversational Turn Progression: Error Explanation & Next-Input Recovery
+
+#### Turn 1: Fault (Documented Missing-Data Case)
+* **Input**: `{"tool": "add", "arguments": {"a": 2}}` (omitted `b`)
+* **Expected Output (Structured Explanation)**:
+  ```json
+  {
+    "success": false,
+    "tool": "add",
+    "result": null,
+    "error": {
+      "code": "MISSING_ARGUMENT",
+      "message": "Missing required numeric parameter 'b'.",
+      "details": {
+        "missing_parameter": "b",
+        "required_parameters": ["a", "b"],
+        "provided_arguments": ["a"],
+        "remediation": "Ensure 'b' is included in arguments, e.g., {'a': 2, 'b': 3}."
+      }
+    }
+  }
+  ```
+
+#### Turn 2: Immediate Recovery (Next Valid Input)
+* **Input**: `{"tool": "add", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output (Clean Recovery)**:
+  ```json
+  {
+    "success": true,
+    "tool": "add",
+    "result": 5,
+    "error": null
+  }
+  ```
+
+#### Turn 3: Fault (Invalid Type Case)
+* **Input**: `{"tool": "multiply", "arguments": {"a": "2", "b": 3}}`
+* **Expected Output (Structured Explanation)**:
+  ```json
+  {
+    "success": false,
+    "tool": "multiply",
+    "result": null,
+    "error": {
+      "code": "INVALID_ARGUMENT",
+      "message": "Argument 'a' must be a numeric value (int or float), got str."
+    }
+  }
+  ```
+
+#### Turn 4: Immediate Recovery (Next Valid Input)
+* **Input**: `{"tool": "multiply", "arguments": {"a": 2, "b": 3}}`
+* **Expected Output (Clean Recovery)**:
+  ```json
+  {
+    "success": true,
+    "tool": "multiply",
+    "result": 6,
+    "error": null
+  }
+  ```
+
+### Failure Isolation Guarantee
+In all error scenarios, execution halts immediately before invoking handlers (`add_call_count == 0`, `multiply_call_count == 0`), guaranteeing that a failed call cannot execute another tool.
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:
