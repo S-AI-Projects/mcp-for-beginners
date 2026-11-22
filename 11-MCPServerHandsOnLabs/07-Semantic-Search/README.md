@@ -1457,6 +1457,45 @@ class EmbeddingCacheManager:
 cache_manager = EmbeddingCacheManager()
 ```
 
+## 🧪 Applied Labs
+
+### [Applied Lab: Capability Negotiation and Feature Gating (R49-T031)](applied-labs/r49-t031/README.md)
+
+This applied extension demonstrates capability negotiation and strict pre-dispatch feature gating between an MCP Client and Server:
+- **Capability Intersection**: Client `{tools, resources}` and Server `{tools, prompts}` negotiate `{tools}`.
+- **Pre-Dispatch Feature Gating**: Calling an unnegotiated capability (e.g., `resources`) is rejected before dispatch, preventing unhandled runtime exceptions or unauthorized execution.
+- **Scope & Limitations (Simulation)**: Employs a deterministic 4-item local catalog fixture (`LOCAL_FIXTURE_PRODUCTS`) and standard-library simulated cosine term-matching. No external models, GPU, network, or cloud credentials required.
+
+#### Exact Invocation:
+```bash
+python3 11-MCPServerHandsOnLabs/07-Semantic-Search/applied-labs/r49-t031/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/07-Semantic-Search/applied-labs/r49-t031 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[Scenario 1: Asymmetric Negotiation]
+  Client declared  : ['resources', 'tools']
+  Server supported : ['prompts', 'tools']
+  Negotiated set   : ['tools']
+  Client-unsupported: ['resources']
+
+  Invoking negotiated capability 'tools/semantic_search'...
+  -> Success! Found 2 items:
+     - Trail Runner Pro Shoes (score: 0.822)
+     - Ultra Lightweight Road Shoes (score: 0.4167)
+
+  Invoking unnegotiated capability 'resources/read_product'...
+  -> Correctly rejected before dispatch!
+     Reason: Capability 'resources' is not negotiated for this session. Negotiated set: ['tools']. Client offered: ['resources', 'tools'], Server offered: ['prompts', 'tools']. Invocation rejected before dispatch.
+```
+
+For complete boundary analysis and test documentation, see the [Applied Lab README](applied-labs/r49-t031/README.md).
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:

@@ -1,0 +1,32 @@
+{
+  "scenario_1_asymmetric": {
+    "client_capabilities": [
+      "tools",
+      "resources"
+    ],
+    "server_capabilities": [
+      "tools",
+      "prompts"
+    ],
+    "sample_query": "trail running",
+    "invalid_call_capability": "resources",
+    "invalid_call_method": "read_product"
+  },
+  "scenario_2_smallest_valid": {
+    "client_capabilities": [
+      "tools"
+    ],
+    "server_capabilities": [
+      "tools"
+    ],
+    "query": "backpack"
+  },
+  "scenario_3_disjoint": {
+    "client_capabilities": [
+      "resources"
+    ],
+    "server_capabilities": [
+      "tools"
+    ]
+  }
+}
