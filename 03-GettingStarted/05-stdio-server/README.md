@@ -558,6 +558,40 @@ Try building out your server with more capabilities. See [this page](https://api
 
 [Solution](./solution/README.md) Here's a possible solution with working code.
 
+## 🧪 Applied Labs
+
+### [Applied Lab: stdio Framing & Offline Service Adapter (R49-T034)](applied-labs/r49-t034/README.md)
+
+This applied extension demonstrates newline-delimited JSON-RPC framing, request ID preservation, stream separation, and offline service adapter architecture:
+- **Two Lines Yield Two Messages**: Processes NDJSON line-by-line while strictly preserving request IDs.
+- **Structured Parse Failure**: Malformed JSON lines return standard JSON-RPC parse errors (`code: -32700`) on stdout.
+- **Stream Separation**: Diagnostic logs are directed exclusively to stderr (`[DIAGNOSTIC] ...`), keeping stdout clean for valid protocol messages.
+- **Callable Adapter**: Puts external dependencies behind `ExternalServiceBackend` with an offline deterministic implementation (`DeterministicLocalAdapter`).
+- **Real-Service Limitations**: Explicitly documents behaviors not established by the mock (network latency, rate limits, timeouts, and OS pipe buffers).
+
+#### Exact Invocation:
+```bash
+python3 03-GettingStarted/05-stdio-server/applied-labs/r49-t034/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 03-GettingStarted/05-stdio-server/applied-labs/r49-t034 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[stdout Protocol Stream (Newline-Delimited JSON-RPC)]:
+  {"jsonrpc": "2.0", "id": 101, "result": {"status": "pong", "service": "local-offline-adapter", "version": "1.0.0"}}
+  {"jsonrpc": "2.0", "id": "req-xyz-2", "result": {"tools": [{"name": "get_weather", "description": "Mock offline weather tool", "inputSchema": {"type": "object", "properties": {"city": {"type": "string"}}}}]}}
+
+[stderr Diagnostic Stream]:
+  [DIAGNOSTIC] Line 1: Dispatching method='ping' id=101
+  [DIAGNOSTIC] Line 2: Dispatching method='tools/list' id='req-xyz-2'
+```
+
+For complete framing and adapter documentation, see the [Applied Lab README](applied-labs/r49-t034/README.md).
+
 ## Key Takeaways
 
 The key takeaways from this chapter are the following:

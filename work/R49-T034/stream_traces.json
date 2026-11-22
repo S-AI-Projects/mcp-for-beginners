@@ -1,0 +1,30 @@
+{
+  "scenario_1": {
+    "stdout": [
+      "{\"jsonrpc\": \"2.0\", \"id\": 101, \"result\": {\"status\": \"pong\", \"service\": \"local-offline-adapter\", \"version\": \"1.0.0\"}}",
+      "{\"jsonrpc\": \"2.0\", \"id\": \"req-xyz-2\", \"result\": {\"tools\": [{\"name\": \"get_weather\", \"description\": \"Mock offline weather tool\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}}}]}}"
+    ],
+    "stderr": [
+      "[DIAGNOSTIC] Line 1: Dispatching method='ping' id=101",
+      "[DIAGNOSTIC] Line 2: Dispatching method='tools/list' id='req-xyz-2'"
+    ]
+  },
+  "scenario_2": {
+    "stdout": [
+      "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"status\": \"pong\", \"service\": \"local-offline-adapter\", \"version\": \"1.0.0\"}}",
+      "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32700, \"message\": \"Parse error: Invalid JSON framing at line 2\"}}"
+    ],
+    "stderr": [
+      "[DIAGNOSTIC] Line 1: Dispatching method='ping' id=1",
+      "[DIAGNOSTIC] Line 2: JSON parse failure: Expecting value at pos 19"
+    ]
+  },
+  "real_service_limitations": [
+    "Network latency, packet jitter, and TCP handshake/TLS negotiation overhead",
+    "HTTP 429 Rate Limiting, 503 Service Unavailable, and exponential backoff retry policies",
+    "Socket timeouts, dropped connections, and TCP keepalive heartbeat failures",
+    "OS pipe buffer saturation (e.g. 64KB kernel buffer blocking) and SIGPIPE termination",
+    "Concurrent multiplexed request-response interleaving across multiple threads/processes",
+    "Payload streaming across fragmented chunked boundaries (partial line buffering across reads)"
+  ]
+}
