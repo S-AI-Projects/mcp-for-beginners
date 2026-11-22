@@ -1,0 +1,35 @@
+{
+  "status": "PASSED",
+  "mappings": [
+    {
+      "input_or_output": "Input: tool='add' / tool='multiply'",
+      "lesson_concept": "5.5 Routing & 5.8 Security (Least Privilege Allowlist)",
+      "architectural_rationale": "Restricts tool invocation to an explicit allowlist before inspecting parameters. Prevents unauthorized method execution, reflection attacks, and wildcard dispatch."
+    },
+    {
+      "input_or_output": "Input: params={'a': numeric, 'b': numeric}",
+      "lesson_concept": "5.8 Security & 5.16 Protocol Features (Schema Validation)",
+      "architectural_rationale": "Guarantees type safety prior to tool handler invocation. Prevents runtime exceptions, SQL/command injection vectors, and malformed payload propagation."
+    },
+    {
+      "input_or_output": "Output: {'jsonrpc': '2.0', 'id': ..., 'result': {'value': 5, ...}}",
+      "lesson_concept": "5.16 Protocol Features (JSON-RPC 2.0 Correlation & Enveloping)",
+      "architectural_rationale": "Preserves client request IDs across asynchronous boundaries and encapsulates computation results within standardized JSON-RPC success structures."
+    },
+    {
+      "input_or_output": "Output: {'error': {'code': -32601, 'message': '...'}}",
+      "lesson_concept": "5.8 Security & 5.16 Protocol Features (Standard Method Resolution Error)",
+      "architectural_rationale": "Provides deterministic, structured failure feedback for missing/unsupported tools without leaking internal server implementation details."
+    },
+    {
+      "input_or_output": "Output: {'error': {'code': -32602, 'message': '...'}}",
+      "lesson_concept": "5.16 Protocol Features (Defensive Parameter Error Envelope)",
+      "architectural_rationale": "Signals parameter schema violations (-32602) to the calling agent so the LLM or client can self-correct inputs without terminating transport connection."
+    },
+    {
+      "input_or_output": "Invariant: Failed calls result in 0 tool executions",
+      "lesson_concept": "5.7 Scaling & 5.8 Security (Circuit Isolation)",
+      "architectural_rationale": "Failed invocations halt processing immediately, guaranteeing no unintended state mutations, cascading tool executions, or secondary side effects occur."
+    }
+  ]
+}

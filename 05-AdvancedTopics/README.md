@@ -64,6 +64,25 @@ For the most up-to-date information on advanced MCP topics, refer to:
 - [OWASP MCP Top 10](https://microsoft.github.io/mcp-azure-security-guide/mcp/) - Security risks and mitigations
 - [MCP Security Summit Workshop (Sherpa)](https://azure-samples.github.io/sherpa/) - Hands-on security training
 
+## 🧪 Applied Labs
+
+### Typed Tool Dispatch & Architectural Mapping (R49-T040)
+For a concrete minimal runnable local implementation demonstrating typed tool dispatch, explicit allowlist gating, and mapping of public inputs/outputs to advanced MCP architectural patterns, see [Applied Lab R49-T040](applied-labs/r49-t040/README.md).
+
+- **Implementation**: [`05-AdvancedTopics/applied-labs/r49-t040/example.py`](applied-labs/r49-t040/example.py)
+- **Unit & Contract Tests**: [`05-AdvancedTopics/applied-labs/r49-t040/test_example.py`](applied-labs/r49-t040/test_example.py)
+- **Exact Invocation**:
+  ```bash
+  python3 05-AdvancedTopics/applied-labs/r49-t040/example.py
+  python3 -m unittest discover -s 05-AdvancedTopics/applied-labs/r49-t040 -p "test_*.py" -v
+  ```
+- **Fixture & Expected Output**:
+  - `add(2, 3)` &rarr; `5`
+  - `multiply(2, 3)` &rarr; `6`
+  - Unknown tool `unauthorized_tool` &rarr; JSON-RPC error `-32601` (`Method not found`)
+  - String parameter `a="2"` &rarr; JSON-RPC error `-32602` (`Invalid params`)
+  - Complete architectural mapping of inputs, outputs, error envelopes, and circuit isolation to Lessons 5.5, 5.7, 5.8, and 5.16.
+
 ## Key Takeaways
 
 - Multi-modal MCP implementations extend AI capabilities beyond text processing
