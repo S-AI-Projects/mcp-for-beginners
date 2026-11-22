@@ -1,0 +1,52 @@
+
+R49-T001: Client-Consent Gate
+Student: Soham Wankhade
+
+Python version: 3.15.2
+
+Normal scenarios:
+
+Approved:
+Expected: approved, 1 model call
+Actual: approved, 1 model call
+Result: PASS
+
+Denied:
+Expected: denied, 0 model calls
+Actual: denied, 0 model calls
+Result: PASS
+
+Invalid input:
+Expected: pending, 0 model calls, error message
+Actual: pending, 0 model calls, error message
+Result: PASS
+
+Automated tests:
+Command:
+python3 -m unittest discover -s 03-GettingStarted/14-sampling/applied-labs/r49-t001 -p "test_*.py"
+
+Expected: 6 tests passed
+Actual: 6 tests passed
+Result: PASS
+
+Environment:
+macOS
+Python 3.15.2
+Python standard library only
+
+Model: Local mock function
+No external AI service used.
+
+Deliberate Failure Test:
+
+Test: Temporarily changed the expected model call count from 1 to 2.
+
+Expected: Test should fail because the actual model call count is 1.
+
+Actual: Test failed as expected.
+
+Result: PASS — The test suite successfully detected the incorrect expected value.
+
+After the check, restored the correct expected value to 1.
+
+Final test suite: 6 tests passed.
