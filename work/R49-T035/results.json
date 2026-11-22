@@ -1,0 +1,39 @@
+{
+  "add_result": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "value": 5,
+      "tool": "add"
+    }
+  },
+  "multiply_result": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+      "value": 6,
+      "tool": "multiply"
+    }
+  },
+  "unknown_tool_error": {
+    "jsonrpc": "2.0",
+    "id": 3,
+    "error": {
+      "code": -32601,
+      "message": "Method not found: Tool 'divide' is not allowlisted."
+    }
+  },
+  "string_param_error": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "error": {
+      "code": -32602,
+      "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."
+    }
+  },
+  "execution_counters": {
+    "add": 1,
+    "multiply": 1
+  },
+  "isolation_verified": true
+}

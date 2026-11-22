@@ -996,6 +996,46 @@ async def test_query_execution():
         await db.close_pool()
 ```
 
+## 🧪 Applied Labs
+
+### [Applied Lab: Typed Tool Dispatch, Allowlist Authorization & Regression Checks (R49-T035)](applied-labs/r49-t035/README.md)
+
+This applied extension demonstrates typed tool dispatch, allowlist authorization, argument schema validation, and execution isolation:
+- **Allowed Operations**: `add(2, 3) -> 5` and `multiply(2, 3) -> 6`.
+- **Structured Error Handling**: Unknown tools return error code `-32601` (`Method not found`); invalid non-numeric inputs (e.g., string `a`) return error code `-32602` (`Invalid params`).
+- **Execution Isolation**: A failed call halts immediately without executing another tool or fallback handlers.
+- **Worked Example Regression**: Publishes an exact worked input-to-output explanation executed as regression checks.
+- **Scope & Limitations (Simulation)**: Uses a lightweight local contract fixture without database or network dependencies.
+
+#### Exact Invocation:
+```bash
+python3 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t035/example.py
+```
+
+#### Test Execution:
+```bash
+python3 -m unittest discover -s 11-MCPServerHandsOnLabs/05-MCP-Server/applied-labs/r49-t035 -p "test_*.py"
+```
+
+#### Expected Output:
+```text
+[Case: Valid add operation with integers 2 and 3]
+  Actual Response: {"jsonrpc": "2.0", "id": 1, "result": {"value": 5, "tool": "add"}}
+  -> Verified: value=5 matches expected 5
+
+[Case: Valid multiply operation with integers 2 and 3]
+  Actual Response: {"jsonrpc": "2.0", "id": 2, "result": {"value": 6, "tool": "multiply"}}
+  -> Verified: value=6 matches expected 6
+
+[Case: Unknown tool invocation ('power')]
+  Actual Response: {"jsonrpc": "2.0", "id": 3, "error": {"code": -32601, "message": "Method not found: Tool 'power' is not allowlisted."}}
+
+[Case: Invalid parameter: string 'a' passed to add()]
+  Actual Response: {"jsonrpc": "2.0", "id": 4, "error": {"code": -32602, "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."}}
+```
+
+For complete worked examples and regression test documentation, see the [Applied Lab README](applied-labs/r49-t035/README.md).
+
 ## 🎯 Key Takeaways
 
 After completing this lab, you should have:

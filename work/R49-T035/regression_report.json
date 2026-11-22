@@ -1,0 +1,86 @@
+[
+  {
+    "description": "Valid add operation with integers 2 and 3",
+    "input": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "tool": "add",
+      "params": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "output": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "value": 5,
+        "tool": "add"
+      }
+    },
+    "status": "PASS"
+  },
+  {
+    "description": "Valid multiply operation with integers 2 and 3",
+    "input": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "tool": "multiply",
+      "params": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "output": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "value": 6,
+        "tool": "multiply"
+      }
+    },
+    "status": "PASS"
+  },
+  {
+    "description": "Unknown tool invocation ('power')",
+    "input": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "tool": "power",
+      "params": {
+        "a": 2,
+        "b": 3
+      }
+    },
+    "output": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "error": {
+        "code": -32601,
+        "message": "Method not found: Tool 'power' is not allowlisted."
+      }
+    },
+    "status": "PASS"
+  },
+  {
+    "description": "Invalid parameter: string 'a' passed to add()",
+    "input": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "tool": "add",
+      "params": {
+        "a": "2",
+        "b": 3
+      }
+    },
+    "output": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "error": {
+        "code": -32602,
+        "message": "Invalid params: Parameter 'a' must be numeric (int or float), got str."
+      }
+    },
+    "status": "PASS"
+  }
+]
