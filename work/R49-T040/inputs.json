@@ -1,0 +1,29 @@
+{
+  "contract_test_cases": [
+    {
+      "id": 1,
+      "tool": "add",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 5, "tool": "add"}
+    },
+    {
+      "id": 2,
+      "tool": "multiply",
+      "params": {"a": 2, "b": 3},
+      "expected_result": {"value": 6, "tool": "multiply"}
+    },
+    {
+      "id": 3,
+      "tool": "unauthorized_tool",
+      "params": {"a": 1, "b": 1},
+      "expected_error": {"code": -32601, "message_contains": "not allowlisted"}
+    },
+    {
+      "id": 4,
+      "tool": "add",
+      "params": {"a": "2", "b": 3},
+      "expected_error": {"code": -32602, "message_contains": "must be numeric"}
+    }
+  ],
+  "concept_mappings_count": 6
+}
